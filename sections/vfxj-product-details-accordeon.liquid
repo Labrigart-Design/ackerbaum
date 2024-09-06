@@ -1,0 +1,831 @@
+{%- render 'section-spacing-collapsing' -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    {% if section.settings.remove_vertical_spacing %}--section-spacing-block: 0px;{% endif %}
+    {% if section.settings.remove_horizontal_spacing %}--section-spacing-inline: 0px;{% endif %}
+  }
+
+  #shopify-section-{{ section.id }} .accordion__content td {
+    width: 50%;
+    display: inline-block;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+</style>
+
+<div {% render 'section-properties' %}>
+  {% assign wuchsform = product.metafields.custom.wuchsform | remove: '[' | remove: ']' | remove: '"' | split: ',' %}
+  {% assign wuchsgeschwindigkeit = product.metafields.custom.wuchsgeschwindigkeit
+    | remove: '['
+    | remove: ']'
+    | remove: '"'
+    | split: ','
+  %}
+  {% assign wuchshoehe = product.metafields.custom.wuchshoehe | remove: '[' | remove: ']' | remove: '"' | split: ',' %}
+  {% assign wuchsbreite = product.metafields.custom.wuchsbreite
+    | remove: '['
+    | remove: ']'
+    | remove: '"'
+    | split: ','
+  %}
+  {% assign pflanzabstand_solitaer = product.metafields.custom.pflanzabstand_solitaer %}
+  {% assign pflanzabstand_produktion = product.metafields.custom.pflanzabstand_produktion %}
+  {% assign befruchtung = product.metafields.custom.befruchtung
+    | remove: '['
+    | remove: ']'
+    | remove: '"'
+    | split: ','
+  %}
+  {% assign bestaeubungspartnerGID = product.metafields['shopify--discovery--product_recommendation'].complementary_products
+    | remove: '['
+    | remove: ']'
+    | remove: '"'
+    | split: ','
+  %}
+  {% assign bluetezeit = product.metafields.custom.bluetezeit | remove: '[' | remove: ']' | remove: '"' | split: ',' %}
+  {% assign bluetenfarbe = product.metafields.custom.bluetenfarbe %}
+  {% assign reifezeit = product.metafields.custom.reifezeit | remove: '[' | remove: ']' | remove: '"' | split: ',' %}
+  {% assign essbare_teile = product.metafields.custom.essbare_teile
+    | remove: '['
+    | remove: ']'
+    | remove: '"'
+    | split: ','
+  %}
+  {% assign verwendung = product.metafields.custom.verwendung | remove: '[' | remove: ']' | remove: '"' | split: ',' %}
+  {% assign lichtanspruch = product.metafields.custom.lichtanspruch
+    | remove: '['
+    | remove: ']'
+    | remove: '"'
+    | split: ','
+  %}
+  {% assign bodenfeuchte = product.metafields.custom.bodenfeuchte
+    | remove: '['
+    | remove: ']'
+    | remove: '"'
+    | split: ','
+  %}
+  {% assign bodeneigenschaft = product.metafields.custom.bodeneigenschaft
+    | remove: '['
+    | remove: ']'
+    | remove: '"'
+    | split: ','
+  %}
+  {% assign winterhaerte = product.metafields.custom.winterhaerte %}
+  {% assign unterlage = '' %}
+  {% assign variantName = '' %}
+  {% for variant in product.variants %}
+    {% assign current_unterlage = variant.metafields.custom.unterlage %}
+    {% if current_unterlage != blank %}
+      {% if unterlage != blank %}
+        {% assign unterlage = unterlage | append: ',' %}
+        {% assign variantName = variantName | append: ',' %}
+      {% endif %}
+      {% assign unterlage = unterlage | append: current_unterlage %}
+      {% assign variantName = variantName | append: variant.title %}
+    {% endif %}
+  {% endfor %}
+  {% assign unterlage = unterlage | split: ',' %}
+  {% assign variantName = variantName | split: ',' %}
+  {% assign synonyme = product.metafields.custom.synonyme | remove: '[' | remove: ']' | remove: '"' | split: ',' %}
+
+  {% if wuchsform != blank
+    or wuchsgeschwindigkeit != blank
+    or wuchshoehe != blank
+    or wuchsbreite != blank
+    or pflanzabstand_solitaer != blank
+    or pflanzabstand_produktion != blank
+    or befruchtung != blank
+    or bluetezeit != blank
+    or reifezeit != blank
+    or essbare_teile != blank
+    or verwendung != blank
+    or lichtanspruch != blank
+    or bodenfeuchte != blank
+    or bodeneigenschaft != blank
+    or winterhaerte != blank
+    or unterlage != blank
+    or synonyme != blank
+  %}
+    <div class="section-stack section-stack--center ">
+      <div class="section-stack__intro">
+        <div class="prose text-center">
+          <h2 class="h2">{{ section.settings.heading }}</h2>
+        </div>
+      </div>
+      <div class="section-stack__main">
+        <div class="accordion-box rounded bg-secondary">
+          <!-- Accordion Wuchs -->
+          {% if wuchsform.size > 0 or wuchsgeschwindigkeit.size > 0 or wuchshoehe.size > 0 or wuchsbreite.size > 0 %}
+            <details class="accordion group akcustom" aria-expanded="false" is="accordion-disclosure">
+              <summary>
+                <div class="accordion__toggle bold">
+                  <span>{{ section.settings.growth }}</span>
+                  <span class="circle-chevron group-hover:colors group-expanded:colors group-expanded:rotate">
+                    <svg
+                      role="presentation"
+                      focusable="false"
+                      width="8"
+                      height="6"
+                      class="icon icon-chevron-bottom-small"
+                      viewBox="0 0 8 6"
+                    >
+                      <path d="m1 1.5 3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+                    </svg>
+                  </span>
+                </div>
+              </summary>
+              <div class="accordion__content">
+                <div class="prose">
+                  <table>
+                    {% if wuchsform.size > 0 %}
+                      <tr>
+                        <td>{{ section.settings.growth_habit }}:</td>
+                        <td>{{ wuchsform | join: '<br>' }}</td>
+                      </tr>
+                    {% endif %}
+                    {% if wuchsgeschwindigkeit.size > 0 %}
+                      <tr>
+                        <td>{{ section.settings.growth_speed }}:</td>
+                        <td>{{ wuchsgeschwindigkeit | join: '<br>' }}</td>
+                      </tr>
+                    {% endif %}
+                    {% if wuchshoehe.size > 0 %}
+                      <tr>
+                        <td>{{ section.settings.growth_height }}:</td>
+                        <td>{{ wuchshoehe | join: '<br>' }}</td>
+                      </tr>
+                    {% endif %}
+                    {% if wuchsbreite.size > 0 %}
+                      <tr>
+                        <td>{{ section.settings.growth_width }}:</td>
+                        <td>{{ wuchsbreite | join: '<br>' }}</td>
+                      </tr>
+                    {% endif %}
+                  </table>
+                </div>
+              </div>
+            </details>
+          {% endif %}
+
+          <!-- Accordion Pflanzabstände -->
+          {% if pflanzabstand_solitaer != blank or pflanzabstand_produktion != blank %}
+            <details class="accordion group akcustom" aria-expanded="false" is="accordion-disclosure">
+              <summary>
+                <div class="accordion__toggle bold">
+                  <span>{{ section.settings.spacing }}</span>
+                  <span class="circle-chevron group-hover:colors group-expanded:colors group-expanded:rotate">
+                    <svg
+                      role="presentation"
+                      focusable="false"
+                      width="8"
+                      height="6"
+                      class="icon icon-chevron-bottom-small"
+                      viewBox="0 0 8 6"
+                    >
+                      <path d="m1 1.5 3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+                    </svg>
+                  </span>
+                </div>
+              </summary>
+
+              <div class="accordion__content">
+                <div class="prose">
+                  <table>
+                    {% if pflanzabstand_solitaer != blank %}
+                      <tr>
+                        <td>{{ section.settings.spacing_solo }}:</td>
+                        <td>{{ pflanzabstand_solitaer }}</td>
+                      </tr>
+                    {% endif %}
+                    {% if pflanzabstand_produktion != blank %}
+                      <tr>
+                        <td>{{ section.settings.spacing_production }}:</td>
+                        <td>{{ pflanzabstand_produktion }}</td>
+                      </tr>
+                    {% endif %}
+                  </table>
+                </div>
+              </div>
+            </details>
+          {% endif %}
+
+          <!-- Accordion Befruchtung -->
+          {% if befruchtung.size > 0 %}
+            {% assign recommended_products = '' | split: '' %}
+            <product-recommendations product="{{ product.id }}" intent="complementary">
+              {% for associated_product in recommendations.products %}
+                {% if product.id != associated_product.id %}
+                  {% assign recommended_products = recommended_products
+                    | append: associated_product.title
+                    | append: ','
+                  %}
+                {% endif %}
+              {% endfor %}
+              <details class="accordion group akcustom" aria-expanded="false" is="accordion-disclosure">
+                <summary>
+                  <div class="accordion__toggle bold">
+                    <span>{{ section.settings.fertilization }}</span>
+                    <span class="circle-chevron group-hover:colors group-expanded:colors group-expanded:rotate">
+                      <svg
+                        role="presentation"
+                        focusable="false"
+                        width="8"
+                        height="6"
+                        class="icon icon-chevron-bottom-small"
+                        viewBox="0 0 8 6"
+                      >
+                        <path d="m1 1.5 3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+                      </svg>
+                    </span>
+                  </div>
+                </summary>
+                <div class="accordion__content">
+                  <div class="prose">
+                    <table>
+                      {% for value in befruchtung %}
+                        {% if value contains 'Kreuzbestäubung' %}
+                          {% if recommended_products.size > 0 %}
+                            <tr>
+                              <td>{{ value }}:</td>
+                              <td>
+                                {{ recommended_products | remove: '[' | remove: ']' | split: ',' | join: '<br><br>' }}
+                              </td>
+                            </tr>
+                          {% endif %}
+                        {% else %}
+                          <tr>
+                            <td>{{ value }}</td>
+                            <td></td>
+                          </tr>
+                        {% endif %}
+                      {% endfor %}
+                    </table>
+                  </div>
+                </div>
+              </details>
+            </product-recommendations>
+          {% endif %}
+
+          <!-- Accordion Blüte -->
+          {% if bluetezeit.size > 0 or bluetenfarbe != blank %}
+            <details class="accordion group akcustom" aria-expanded="false" is="accordion-disclosure">
+              <summary>
+                <div class="accordion__toggle bold">
+                  <span>{{ section.settings.blossom }}</span>
+                  <span class="circle-chevron group-hover:colors group-expanded:colors group-expanded:rotate">
+                    <svg
+                      role="presentation"
+                      focusable="false"
+                      width="8"
+                      height="6"
+                      class="icon icon-chevron-bottom-small"
+                      viewBox="0 0 8 6"
+                    >
+                      <path d="m1 1.5 3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+                    </svg>
+                  </span>
+                </div>
+              </summary>
+
+              {% assign monate = section.settings.months | split: ',' %}
+              {% assign monatsgruppe = '' %}
+              {% assign result_tmp = '' %}
+
+              {% for zeit in bluetezeit %}
+                {% assign currentMonthIndex = '' | plus: 0 %}
+                {% for monat in monate %}
+                  {% if monat == zeit %}
+                    {% assign currentMonthIndex = forloop.index0 %}
+                  {% endif %}
+                {% endfor %}
+                {% if forloop.index0 > 0 %}
+                  {% assign previousMonthIndex = currentMonthIndex | minus: 1 %}
+                  {% if previousMonthIndex == -1 %}
+                    {% assign previousMonthIndex = 11 %}
+                  {% endif %}
+                  {% assign previousMonth = monate[previousMonthIndex] %}
+                  {% assign previousBluetezeitIndex = forloop.index0 | minus: 1 %}
+                  {% assign previousBluetezeit = bluetezeit[previousBluetezeitIndex] %}
+
+                  {% if previousMonth == previousBluetezeit %}
+                    {% assign monatsgruppe = monatsgruppe | append: '-' %}
+                    {% assign monatsgruppe = monatsgruppe | append: zeit %}
+                  {% else %}
+                    {% assign result_tmp = result_tmp | append: monatsgruppe %}
+                    {% assign result_tmp = result_tmp | append: ',' %}
+                    {% assign monatsgruppe = zeit %}
+                  {% endif %}
+                {% else %}
+                  {% assign monatsgruppe = zeit %}
+                {% endif %}
+              {% endfor %}
+              {% assign result_tmp = result_tmp | append: monatsgruppe %}
+
+              {% assign zeitspannenParts = result_tmp | split: ',' %}
+              {% assign result = '' %}
+
+              {% for zeitspanne in zeitspannenParts %}
+                {% if zeitspanne contains '-' %}
+                  {% assign first = zeitspanne | split: '-' | first %}
+                  {% assign last = zeitspanne | split: '-' | last %}
+                  {% assign combined = first | append: '-' | append: last %}
+                  {% if result != '' %}
+                    {% assign result = result | append: ',' %}
+                  {% endif %}
+                  {% assign result = result | append: combined %}
+                {% else %}
+                  {% if result != '' %}
+                    {% assign result = result | append: ',' %}
+                  {% endif %}
+                  {% assign result = result | append: zeitspanne %}
+                {% endif %}
+              {% endfor %}
+
+              {% assign timerangeConnector = section.settings.connector | append: ' ' | prepend: ' ' %}
+              {% assign result = result | replace: '-', timerangeConnector %}
+              {% assign result = result | split: ',' %}
+
+              <div class="accordion__content">
+                <div class="prose">
+                  <table>
+                    {% if bluetenfarbe != blank %}
+                      <tr>
+                        <td>{{ section.settings.blossom_color }}:</td>
+                        <td>{{ bluetenfarbe }}</td>
+                      </tr>
+                    {% endif %}
+                    {% if bluetezeit.size > 0 %}
+                      <tr>
+                        <td>{{ section.settings.blossom_time }}:</td>
+                        <td>{{ result | join: '<br>' }}</td>
+                      </tr>
+                    {% endif %}
+                  </table>
+                </div>
+              </div>
+            </details>
+          {% endif %}
+
+          <!-- Accordion Früchte & Essbares -->
+          {% if reifezeit.size > 0 or essbare_teile.size > 0 or verwendung.size > 0 %}
+            <details class="accordion group akcustom" aria-expanded="false" is="accordion-disclosure">
+              <summary>
+                <div class="accordion__toggle bold">
+                  <span>{{ section.settings.fruits }}</span>
+                  <span class="circle-chevron group-hover:colors group-expanded:colors group-expanded:rotate">
+                    <svg
+                      role="presentation"
+                      focusable="false"
+                      width="8"
+                      height="6"
+                      class="icon icon-chevron-bottom-small"
+                      viewBox="0 0 8 6"
+                    >
+                      <path d="m1 1.5 3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+                    </svg>
+                  </span>
+                </div>
+              </summary>
+
+              {% assign monate = section.settings.months | split: ',' %}
+              {% assign monatsgruppe = '' %}
+              {% assign result_tmp = '' %}
+
+              {% for zeit in reifezeit %}
+                {% assign currentMonthIndex = '' | plus: 0 %}
+                {% for monat in monate %}
+                  {% if monat == zeit %}
+                    {% assign currentMonthIndex = forloop.index0 %}
+                  {% endif %}
+                {% endfor %}
+                {% if forloop.index0 > 0 %}
+                  {% assign previousMonthIndex = currentMonthIndex | minus: 1 %}
+                  {% if previousMonthIndex == -1 %}
+                    {% assign previousMonthIndex = 11 %}
+                  {% endif %}
+                  {% assign previousMonth = monate[previousMonthIndex] %}
+                  {% assign previousReifezeitIndex = forloop.index0 | minus: 1 %}
+                  {% assign previousReifezeit = reifezeit[previousReifezeitIndex] %}
+
+                  {% if previousMonth == previousReifezeit %}
+                    {% assign monatsgruppe = monatsgruppe | append: '-' %}
+                    {% assign monatsgruppe = monatsgruppe | append: zeit %}
+                  {% else %}
+                    {% assign result_tmp = result_tmp | append: monatsgruppe %}
+                    {% assign result_tmp = result_tmp | append: ',' %}
+                    {% assign monatsgruppe = zeit %}
+                  {% endif %}
+                {% else %}
+                  {% assign monatsgruppe = zeit %}
+                {% endif %}
+              {% endfor %}
+              {% assign result_tmp = result_tmp | append: monatsgruppe %}
+
+              {% assign zeitspannenParts = result_tmp | split: ',' %}
+              {% assign result = '' %}
+
+              {% for zeitspanne in zeitspannenParts %}
+                {% if zeitspanne contains '-' %}
+                  {% assign first = zeitspanne | split: '-' | first %}
+                  {% assign last = zeitspanne | split: '-' | last %}
+                  {% assign combined = first | append: '-' | append: last %}
+                  {% if result != '' %}
+                    {% assign result = result | append: ',' %}
+                  {% endif %}
+                  {% assign result = result | append: combined %}
+                {% else %}
+                  {% if result != '' %}
+                    {% assign result = result | append: ',' %}
+                  {% endif %}
+                  {% assign result = result | append: zeitspanne %}
+                {% endif %}
+              {% endfor %}
+
+              {% assign timerangeConnector = section.settings.connector | append: ' ' | prepend: ' ' %}
+              {% assign result = result | replace: '-', timerangeConnector %}
+              {% assign result = result | split: ',' %}
+
+              <div class="accordion__content">
+                <div class="prose">
+                  <table>
+                    {% if reifezeit.size > 0 %}
+                      <tr>
+                        <td>{{ section.settings.ripening_time }}:</td>
+                        <td>{{ result | join: '<br>' }}</td>
+                      </tr>
+                    {% endif %}
+                    {% if essbare_teile.size > 0 %}
+                      <tr>
+                        <td>{{ section.settings.edible_parts }}:</td>
+                        <td>{{ essbare_teile | join: '<br>' }}</td>
+                      </tr>
+                    {% endif %}
+                    {% if verwendung.size > 0 %}
+                      <tr>
+                        <td>{{ section.settings.use }}:</td>
+                        <td>{{ verwendung | join: '<br>' }}</td>
+                      </tr>
+                    {% endif %}
+                  </table>
+                </div>
+              </div>
+            </details>
+          {% endif %}
+
+          <!-- Accordion Standort -->
+          {% if lichtanspruch.size > 0 or bodenfeuchte.size > 0 or bodeneigenschaft.size > 0 or winterhaerte != blank %}
+            <details class="accordion group akcustom" aria-expanded="false" is="accordion-disclosure">
+              <summary>
+                <div class="accordion__toggle bold">
+                  <span>{{ section.settings.location }}</span>
+                  <span class="circle-chevron group-hover:colors group-expanded:colors group-expanded:rotate">
+                    <svg
+                      role="presentation"
+                      focusable="false"
+                      width="8"
+                      height="6"
+                      class="icon icon-chevron-bottom-small"
+                      viewBox="0 0 8 6"
+                    >
+                      <path d="m1 1.5 3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+                    </svg>
+                  </span>
+                </div>
+              </summary>
+
+              <div class="accordion__content">
+                <div class="prose">
+                  <table>
+                    {% if lichtanspruch.size > 0 %}
+                      <tr>
+                        <td>{{ section.settings.light_requirement }}:</td>
+                        <td>{{ lichtanspruch | join: '<br>' }}</td>
+                      </tr>
+                    {% endif %}
+
+                    {% if bodenfeuchte.size > 0 %}
+                      <tr>
+                        <td>{{ section.settings.soil_moisture }}:</td>
+                        <td>{{ bodenfeuchte | join: '<br>' }}</td>
+                      </tr>
+                    {% endif %}
+
+                    {% if bodeneigenschaft.size > 0 %}
+                      <tr>
+                        <td>{{ section.settings.soil_condition }}:</td>
+                        <td>{{ bodeneigenschaft | join: '<br>' }}</td>
+                      </tr>
+                    {% endif %}
+
+                    {% if winterhaerte != blank %}
+                      <tr>
+                        <td>{{ section.settings.hardy }}:</td>
+                        <td>{{ winterhaerte }}</td>
+                      </tr>
+                    {% endif %}
+                  </table>
+                </div>
+              </div>
+            </details>
+          {% endif %}
+
+          {% if unterlage.size > 0 or synonyme.size > 0 %}
+            <details class="accordion group akcustom" aria-expanded="false" is="accordion-disclosure">
+              <summary>
+                <div class="accordion__toggle bold">
+                  <span>{{ section.settings.misc }}</span>
+                  <span class="circle-chevron group-hover:colors group-expanded:colors group-expanded:rotate">
+                    <svg
+                      role="presentation"
+                      focusable="false"
+                      width="8"
+                      height="6"
+                      class="icon icon-chevron-bottom-small"
+                      viewBox="0 0 8 6"
+                    >
+                      <path d="m1 1.5 3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+                    </svg>
+                  </span>
+                </div>
+              </summary>
+
+              <div class="accordion__content">
+                <div class="prose">
+                  {% if unterlage.size > 0 %}
+                    <table>
+                      <tr>
+                        <td>{{ section.settings.base }}:</td>
+                        <td></td>
+                      </tr>
+                      {% for i in (0..unterlage.size) %}
+                        <tr>
+                          <td>{{ variantName[i] }}</td>
+                          <td>{{ unterlage[i] }}</td>
+                        </tr>
+                      {% endfor %}
+                    </table>
+                  {% endif %}
+                  {% if synonyme.size > 0 %}
+                    <table>
+                      <tr>
+                        <td>{{ section.settings.synonyms }}:</td>
+                        <td>{{ synonyme | join: '<br>' }}</td>
+                      </tr>
+                    </table>
+                  {% endif %}
+                </div>
+              </div>
+            </details>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+  document.querySelectorAll('.accordion__toggle').forEach((toggle) => {
+    toggle.addEventListener('click', (event) => {
+      const details = event.target.closest('details.accordion.group.akcustom');
+      if (details.getAttribute('aria-expanded') === 'false') {
+        document.querySelectorAll('details.accordion.group.akcustom').forEach((el) => {
+          if (el !== details) {
+            el.open = true;
+          }
+        });
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "AB Produktdetails",
+  "tag": "section",
+  "class": "shopify-section--product-details",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Sektion Überschrift",
+      "default": "Produktdetails"
+    },
+    {
+      "type": "header",
+      "content": "Akkordeon Abschnitte"
+    },
+    {
+      "type": "text",
+      "id": "growth",
+      "label": "Überschrift Wuchs",
+      "default": "Wuchs"
+    },
+    {
+      "type": "text",
+      "id": "spacing",
+      "label": "Überschrift Pflanzabstände",
+      "default": "Pflanzabstände"
+    },
+    {
+      "type": "text",
+      "id": "fertilization",
+      "label": "Überschrift Befruchtung",
+      "default": "Befruchtung"
+    },
+    {
+      "type": "text",
+      "id": "blossom",
+      "label": "Überschrift Blüte",
+      "default": "Blüte"
+    },
+    {
+      "type": "text",
+      "id": "fruits",
+      "label": "Überschrift Früchte & Essbares",
+      "default": "Früchte & Essbares"
+    },
+    {
+      "type": "text",
+      "id": "location",
+      "label": "Überschrift Standort",
+      "default": "Standort"
+    },
+    {
+      "type": "text",
+      "id": "misc",
+      "label": "Überschrift Sonstiges",
+      "default": "Sonstiges"
+    },
+    {
+      "type": "header",
+      "content": "Akkordeon Eigenschaften"
+    },
+    {
+      "type": "text",
+      "id": "growth_habit",
+      "label": "Überschrift Wuchsform",
+      "default": "Wuchsform"
+    },
+    {
+      "type": "text",
+      "id": "growth_speed",
+      "label": "Überschrift Wuchsgeschwindigkeit",
+      "default": "Wuchsgeschwindigkeit"
+    },
+    {
+      "type": "text",
+      "id": "growth_height",
+      "label": "Überschrift Wuchshöhe",
+      "default": "Wuchshöhe"
+    },
+    {
+      "type": "text",
+      "id": "growth_width",
+      "label": "Überschrift Wuchsbreite",
+      "default": "Wuchsbreite"
+    },
+    {
+      "type": "text",
+      "id": "spacing_solo",
+      "label": "Überschrift Pflanzabstand Solitär",
+      "default": "Pflanzabstand Solitär"
+    },
+    {
+      "type": "text",
+      "id": "spacing_production",
+      "label": "Überschrift Pflanzabstand Produktion",
+      "default": "Pflanzabstand Produktion"
+    },
+    {
+      "type": "text",
+      "id": "blossom_time",
+      "label": "Überschrift Blütezeit",
+      "default": "Blütezeit"
+    },
+    {
+      "type": "text",
+      "id": "months",
+      "label": "Monate",
+      "default": "Januar,Februar,März,April,Mai,Juni,Juli,August,September,Oktober,November,Dezember"
+    },
+    {
+      "type": "text",
+      "id": "connector",
+      "label": "Verbindungswort",
+      "default": " bis "
+    },
+    {
+      "type": "text",
+      "id": "blossom_color",
+      "label": "Überschrift Blütenfarbe",
+      "default": "Blütenfarbe"
+    },
+    {
+      "type": "text",
+      "id": "ripening_time",
+      "label": "Überschrift Reifezeit",
+      "default": "Reifezeit"
+    },
+    {
+      "type": "text",
+      "id": "edible_parts",
+      "label": "Überschrift Essbare Teile",
+      "default": "Essbare Teile"
+    },
+    {
+      "type": "text",
+      "id": "use",
+      "label": "Überschrift Verwendung",
+      "default": "Verwendung"
+    },
+    {
+      "type": "text",
+      "id": "light_requirement",
+      "label": "Überschrift Lichtanspruch",
+      "default": "Lichtanspruch"
+    },
+    {
+      "type": "text",
+      "id": "soil_moisture",
+      "label": "Überschrift Bodenfeuchte",
+      "default": "Bodenfeuchte"
+    },
+    {
+      "type": "text",
+      "id": "soil_condition",
+      "label": "Überschrift Bodeneigenschaften",
+      "default": "Bodeneigenschaften"
+    },
+    {
+      "type": "text",
+      "id": "hardy",
+      "label": "Überschrift Winterhärte",
+      "default": "Winterhärte"
+    },
+    {
+      "type": "text",
+      "id": "base",
+      "label": "Überschrift Unterlage",
+      "default": "Unterlage"
+    },
+    {
+      "type": "text",
+      "id": "synonyms",
+      "label": "Überschrift Synonyme",
+      "default": "Synonyme"
+    },
+
+    {
+      "type": "header",
+      "content": "Allgemeine Einstellungen"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_vertical_spacing",
+      "label": "Remove vertical spacing",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_horizontal_spacing",
+      "label": "Remove horizontal spacing",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Colors",
+      "info": "Gradient replaces solid colors when set."
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background"
+    },
+    {
+      "type": "color_background",
+      "id": "background_gradient",
+      "label": "Background gradient"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "AB Produktdetails"
+    }
+  ]
+}
+{% endschema %}

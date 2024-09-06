@@ -1,0 +1,163 @@
+<div class="lb-pdp-compare-section">
+  {% if section.settings.lb-pdp-compare-headline != blank %}<h3>{{ section.settings.lb-pdp-compare-headline }}</h3>{% endif %}
+  {% if section.settings.lb-pdp-compare-text != blank %}<p>{{ section.settings.lb-pdp-compare-text }}</p>{% endif %}
+  <img src="{{ section.settings.lb-pdp-compare-desktop | img_url: '1600x' }}" class="lb-pdp-compare-section-desktop">
+  <img src="{{ section.settings.lb-pdp-compare-mobile | img_url: '600x' }}" class="lb-pdp-compare-section-mobile">
+</div>
+
+<style>
+  {% assign lb-pdp-image-compare-headline-font = section.settings.lb-pdp-compare-headline-font %}
+  {{ lb-pdp-image-compare-headline-font | font_face }}
+
+  {% assign lb-pdp-compare-text-font = section.settings.lb-pdp-compare-text-font %}
+  {{ lb-pdp-compare-text-font | font_face }}
+
+  {% if section.settings.lb-pdp-compare-headline-customfont != blank %}
+  @font-face {
+    font-family: "lb-pdp-compare-headline-customfont";
+    src: url("{{ section.settings.lb-pdp-compare-headline-customfont }}") format("woff2"),
+         url("{{ section.settings.lb-pdp-compare-headline-customfont }}") format("woff");
+  }
+  {% endif %}
+
+  .lb-pdp-compare-section {
+    padding: 36px 18px!important;
+    background: {{ section.settings.backgroundcolor }}!important;
+  }
+  .lb-pdp-compare-section h3 {
+    text-align: center;
+    margin: 0px auto 18px auto;
+    max-width: 800px;
+    font-size: 26px;
+    line-height: 34px;
+      font-weight: bold;
+      font-family: "SofiaProSemiBold" !important;
+    color: {{ section.settings.headline-color }};
+  }
+  .lb-pdp-compare-section p {
+      text-align: center;
+      margin: 0px auto 18px auto;
+      max-width: 600px;
+      font-size: 20px;
+      line-height: 26px;
+      font-family: {{ lb-pdp-compare-text-font.family }}, {{ lb-pdp-compare-text-font.fallback_families }} !important;
+      color: {{ section.settings.text-color }};
+  }
+  .lb-pdp-compare-section-desktop {
+    max-width: {{ section.settings.compare-max-width }}px;
+    width: 100%;
+    margin: auto;
+    display: block;
+  }
+  .lb-pdp-compare-section-mobile {
+    display: none;
+    width: 100%;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .lb-pdp-compare-section h3 {
+      font-size: 24px;
+      line-height: 30px;
+    }
+  
+    .lb-pdp-compare-section p {
+      font-size: 16px;
+      line-height: 22px;
+    }
+  
+    .lb-pdp-compare-section-desktop {
+      display: none;
+    }
+  
+   .lb-pdp-compare-section-mobile {
+      display: block!important;
+     width: 100%;
+    }
+  }    
+</style>
+
+{% schema %}
+{
+  "name": "lb Compare Brands",
+  "settings": [
+    {
+      "type": "color",
+      "id": "backgroundcolor",
+      "label": "Hintergrundfarbe",
+      "default": "#f2f2f2"
+    },
+    {
+      "type": "text",
+      "id": "lb-pdp-compare-headline",
+      "label": "Headline",
+      "default": "Im vergleich zu anderen Produkten"
+    },
+    {
+      "type": "color",
+      "id": "headline-color",
+      "label": "Headline Schriftfarbe",
+      "default": "#000000"
+    },
+    {
+      "type": "font_picker",
+      "id": "lb-pdp-compare-headline-font",
+      "default": "sans-serif",
+      "label": "Headline Schriftart"
+    },
+    {
+      "type": "text",
+      "id": "lb-pdp-compare-headline-customfont",
+      "label": {
+        "en": "Custom Font Family"
+      },
+      "info": {
+        "en": "Lade Deine Schriftart in den Shopify-Inhalten hoch und füge hier die Datei-URL ein."
+      }
+    },
+    {
+      "type": "textarea",
+      "id": "lb-pdp-compare-text",
+      "label": "Paragraph",
+      "default": "Lorem ipsum dolor sit amet, consectetur exer."
+    },
+    {
+      "type": "color",
+      "id": "text-color",
+      "label": "Paragraph Schriftfarbe",
+      "default": "#000000"
+    },
+    {
+      "type": "font_picker",
+      "id": "lb-pdp-compare-text-font",
+      "default": "sans-serif",
+      "label": "Paragraph Schriftart"
+    },
+    {
+      "type": "image_picker",
+      "id": "lb-pdp-compare-desktop",
+      "label": "Bannerbild"
+    }, 
+     {
+      "type": "range",
+      "id": "compare-max-width",
+      "label": "Maximale Desktop Breite",
+      "default": 1200,
+      "min": 600,
+      "max": 1400,
+      "step": 100
+    },
+    {
+      "type": "image_picker",
+      "id": "lb-pdp-compare-mobile",
+      "label": "Bannerbild"
+    }
+  ],
+  "presets": [
+    {
+      "category": "HTML",
+      "name": "lb Compare Brands",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

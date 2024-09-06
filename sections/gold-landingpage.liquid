@@ -1,0 +1,204 @@
+<!-- Hero-Bereich -->
+<section class="tw-mx-auto tw-max-w-7xl tw-px-4 tw-pt-8 tw-pb-12 tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-8 tw-items-center">
+  <div>
+    {{ section.settings.gold_logo | image_url: width: 640 | image_tag: class: 'tw-max-w-full tw-w-80 tw-mb-2' }}
+    <h1 class="h1 tw-mb-4">
+      {{ section.settings.headline }}
+    </h1>
+    <p class="tw-text-lg tw-mb-4">{{ section.settings.text }}</p>
+
+    <a href="{{section.settings.cta_url}}" class="button button--lg tw-w-full md:tw-w-auto">
+      {{- section.settings.cta -}}
+    </a>
+  </div>
+  {{
+    section.settings.hero_image
+    | image_url: width: 600
+    | image_tag: class: 'tw-mx-auto tw-mb-8 tw-w-full tw-max-w-md tw-object-cover rounded'
+  }}
+</section>
+
+<!-- Gold-Mitgliedschaft Erklärung -->
+<section class="tw-py-8 tw-bg-white">
+  <div class="tw-max-w-6xl tw-mx-auto tw-px-4 tw-text-center">
+    <h2 class="h2 tw-mb-8">{{ section.settings.requirements_headline }}</h2>
+    <p class="tw-text-lg tw-mb-4">
+      {{ section.settings.requirements_text }}
+    </p>
+  </div>
+</section>
+
+<!-- Vorteile-Bereich -->
+<section class="tw-py-12">
+  <div class="tw-max-w-6xl tw-mx-auto tw-px-4">
+    <h2 class="h2 tw-mb-12 tw-text-center">{{ section.settings.benefits_headline }}</h2>
+    <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-8">
+      {% for block in section.blocks %}
+        <div class="tw-flex tw-flex-col tw-items-center tw-text-center tw-p-4 bg-secondary rounded">
+          {% if block.settings.image %}
+            <img
+              src="{{ block.settings.image | img_url: '300x300' }}"
+              alt="{{ block.settings.title }}"
+              class="tw-mb-4 tw-w-32 tw-h-32 tw-object-cover tw-rounded-full"
+            >
+          {% endif %}
+          <h3 class="h3 tw-mb-2">{{ block.settings.title }}</h3>
+          <p class="tw-text-lg">{{ block.settings.text }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Anmeldeabschnitt -->
+<section class="tw-py-12 bg-secondary">
+  <div class="tw-max-w-4xl tw-mx-auto tw-px-4 tw-text-center">
+    <h2 class="h2 tw-mb-6">{{ section.settings.join_headline }}</h2>
+    <p class="tw-mb-12 tw-text-lg">{{ section.settings.join_text }}</p>
+    <a href="{{section.settings.cta_url}}" class="button button--lg tw-w-full md:tw-w-auto">
+      {{- section.settings.cta -}}
+    </a>
+  </div>
+</section>
+
+<!-- Exklusive Events -->
+<section class="tw-py-12 tw-bg-white">
+  <div class="tw-max-w-4xl tw-mx-auto tw-px-4">
+    <h2 class="h2 tw-mb-12 tw-text-center">{{ section.settings.events_headline }}</h2>
+    <div class="tw-flex tw-items-center tw-gap-6 tw-flex-col md:tw-flex-row">
+      {{
+        section.settings.events_image
+        | image_url: width: 600
+        | image_tag: class: 'tw-w-full md:tw-w-1/2 rounded tw-object-cover'
+      }}
+      <p class="tw-w-full md:tw-w-1/2 tw-text-lg">
+        {{ section.settings.events_text }}
+      </p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gold Landing Page",
+  "tag": "section",
+  "presets": [
+    {
+      "name": "Ackerbaum Gold Landing Page"
+    }
+  ],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero-Bild",
+      "info": "Wähle ein Bild für den Hero-Bereich aus."
+    },
+    {
+      "type": "image_picker",
+      "id": "gold_logo",
+      "label": "Logo für Gold-Mitgliedschaft",
+      "info": "Lade ein spezielles Logo für die Gold-Mitgliedschaft hoch."
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Überschrift des Hero-Bereichs",
+      "default": "Exklusiv für unsere treuesten Kunden"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Beschreibungstext im Hero-Bereich",
+      "default": "Erreiche neue Höhen in Deinem Gartenbau mit unserer Gold Mitgliedschaft."
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Text für den Call-to-Action-Button",
+      "default": "Konto erstellen"
+    },
+    {
+      "type": "text",
+      "id": "cta_url",
+      "label": "URL für den Call-to-Action-Button",
+      "default": "/account/register"
+    },
+    {
+      "type": "text",
+      "id": "requirements_headline",
+      "label": "Überschrift für die Goldmitgliedschaftserklärung",
+      "default": "Wie Du Goldmitglied wirst"
+    },
+    {
+      "type": "textarea",
+      "id": "requirements_text",
+      "label": "Beschreibungstext für die Goldmitgliedschaftserklärung",
+      "default": "Werde Teil unseres exklusiven Kreises, indem Du innerhalb von 365 Tagen Einkäufe im Wert von 1.000€ oder mehr tätigst. Ab dem Moment, in dem Du diesen Meilenstein erreichst, genießt Du für ein ganzes Jahr die Vorteile der Goldmitgliedschaft."
+    },
+    {
+      "type": "text",
+      "id": "benefits_headline",
+      "label": "Überschrift für den Vorteile-Bereich",
+      "default": "Was erwartet Dich als Ackerbaum Gold Mitglied?"
+    },
+    {
+      "type": "text",
+      "id": "join_headline",
+      "label": "Überschrift für den Anmeldeabschnitt",
+      "default": "Jetzt Teil der Ackerbaum Gold Familie werden"
+    },
+    {
+      "type": "text",
+      "id": "join_text",
+      "label": "Beschreibungstext für den Anmeldeabschnitt",
+      "default": "Erstelle Dein Ackerbaum Konto und starte Deine Reise zum Ackerbaum Gold Status."
+    },
+    {
+      "type": "text",
+      "id": "events_headline",
+      "label": "Überschrift für Exklusive Events",
+      "default": "Ackerbaum Mastermind mit unserem Gründer Paul"
+    },
+    {
+      "type": "text",
+      "id": "events_text",
+      "label": "Beschreibungstext für Exklusive Events",
+      "default": "Unser Gründer Paul nimmt sich regelmäßig Zeit für Dich und gibt in kleinen Gruppen Mastermind Seminare. Hier könnt Ihr all Eure Fragen stellen, um Euren Traumgarten optimal zu versorgen. Außerdem stellt Paul ausgewählte und saisonrelevante Themen vor."
+    },
+    {
+      "type": "image_picker",
+      "id": "events_image",
+      "label": "Bild für Exklusive Events",
+      "info": "Wähle ein Bild für die Sektion der exklusiven Events aus."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Vorteil",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Bild für den Vorteil",
+          "info": "Wähle ein Bild, das den Vorteil visuell darstellt."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel des Vorteils",
+          "default": "Titel des Vorteils"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Beschreibung des Vorteils",
+          "default": "Beschreibe, welchen Vorteil dieses Feature bietet."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3
+}
+{% endschema %}

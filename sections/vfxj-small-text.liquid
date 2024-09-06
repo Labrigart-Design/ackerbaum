@@ -1,0 +1,91 @@
+{%- render 'section-spacing-collapsing' -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    {% if section.settings.remove_vertical_spacing %}--section-spacing-block: 0px;{% endif %}
+    {% if section.settings.remove_horizontal_spacing %}--section-spacing-inline: 0px;{% endif %}
+  }
+  
+  #shopify-section-{{ section.id }} .small-text-wrapper {
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} p {
+    text-align: center;
+    font-size: 12px;
+    position: absolute;
+    bottom: 12px;
+    width: 100%;
+  }
+</style>
+
+<div {% render 'section-properties' %}>
+  <div class="small-text-wrapper prose text-subdued">
+    {{ section.settings.text }}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "AB Hinweistext",
+  "tag": "section",
+  "class": "shopify-section--small-text",
+  "disabled_on": {
+    "groups": ["custom.overlay"]
+  },
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Hinweistext"
+    },
+    {
+      "type": "header",
+      "content": "Allgemeine Einstellungen"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_vertical_spacing",
+      "label": "Remove vertical spacing",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_horizontal_spacing",
+      "label": "Remove horizontal spacing",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Colors",
+      "info": "Gradient replaces solid colors when set."
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background"
+    },
+    {
+      "type": "color_background",
+      "id": "background_gradient",
+      "label": "Background gradient"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "AB Hinweistext"
+    }
+  ]
+}
+{% endschema %}

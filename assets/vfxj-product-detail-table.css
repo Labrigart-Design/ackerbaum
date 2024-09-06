@@ -1,0 +1,65 @@
+.product-details-wrapper {
+    padding: var(--spacing-1) var(--spacing-6);
+}
+
+.product-details-wrapper {
+    padding: var(--spacing-6);
+}
+
+@media screen and (min-width: 750px) {
+    .product-details-wrapper {
+        padding: var(--spacing-5) var(--spacing-12);
+    }
+}
+
+/* table details */
+.shopify-section--product-details-table .heading-row {
+    margin-top: 64px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid rgb(var(--text-color));
+}
+
+
+.shopify-section--product-details-table .heading-row:last-child {
+    display: none;
+}
+
+@supports(selector(:has(p))) {
+
+    /* :has() Supported! */
+    .shopify-section--product-details-table .heading-row {
+        display: none;
+    }
+
+    .shopify-section--product-details-table .heading-row:has(+ .detail-row) {
+        display: block;
+    }
+}
+
+
+.shopify-section--product-details-table .detail-row {
+    padding: 24px 0;
+    border-bottom: 1px solid rgb(var(--text-color));
+}
+
+.shopify-section--product-details-table .detail-row {
+    display: flex;
+    width: 100%;
+}
+
+.shopify-section--product-details-table .row-element {
+    width: 50%;
+    overflow-wrap: break-word
+}
+
+.shopify-section--product-details-table .row-heading {
+    padding-right: 12px;
+}
+
+.shopify-section--product-details-table .recommendet-products:not(:last-child) {
+    margin-bottom: 16px;
+}
+
+.shopify-section--product-details-table .recommendet-products a:hover {
+    text-decoration: underline;
+}

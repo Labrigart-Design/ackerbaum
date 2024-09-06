@@ -1,0 +1,144 @@
+<style>
+  .popup-wrapper-{{ block.id }} {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+  }
+
+  .popup-wrapper-{{ block.id }}:hover {
+      cursor:pointer;
+  }
+
+  {% comment %} popup styles {% endcomment %}
+  .popup-overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 998;
+      display: none;
+      margin: 0;
+  }
+
+  .popup-content {
+      background-color: #f3efec;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      box-shadow: 0 0 10px #311d0f;
+      border-radius: 5px;
+      height: 60%;
+      width: 95vw;
+      max-width: 800px;
+      overflow-y: auto;
+      display: none;
+      z-index: 999;
+      flex-direction: column;
+  }
+
+  .popup-content h2 {
+      margin: 0.25rem 0 0.75rem 0;
+  }
+
+  .popup-content p {
+      margin: 16px 0;
+  }
+
+  .popup-content ul {
+      padding-left: 20px;
+      list-style-type: disc;
+  }
+
+  .popup-content a {
+    text-decoration: underline;
+  }
+
+  @media screen and (min-width: 750px) {
+    .popup-content {
+      width: 80vw;
+  }
+  }
+</style>
+
+{% if customer.metafields['memberr-v1'].customer_memberships.value.size > 0 %}
+  {% assign ackerbaum_gold_member = true %}
+{% else %}
+  {% assign ackerbaum_gold_member = false %}
+{% endif %}
+{% if ackerbaum_gold_member %}
+  {% assign cashback_value = product.selected_or_first_available_variant.price | times: 0.05 | money %}
+{% else %}
+  {% assign cashback_value = product.selected_or_first_available_variant.price | times: 0.025 | money %}
+{% endif %}
+
+<div class="popup-wrapper-{{ block.id }}">
+  <p class="text-sm text-subdued">
+    Du erhältst {{ cashback_value }}
+    <span class="tw-underline">Guthaben</span> beim Kauf dieser Pflanze
+  </p>
+</div>
+
+<div class="popup-overlay popup-overlay-{{ block.id }}"></div>
+
+<div class="popup-content popup-content-{{ block.id }}">
+  <div class="cart-drawer__top">
+    <div class="h-stack items-center justify-between">
+      <div class="h-stack gap-2 sm:gap-2.5">
+        {% if block.settings.page_url != blank %}
+          <h5 class="h5">{{ block.settings.page_url.title }}</h5>
+        {% endif %}
+      </div>
+      <button type="button" id="close-button-{{ block.id }}" class="drawer__close-icon">
+        <span class="sr-only">Schließen</span>
+        <svg
+          role="presentation"
+          stroke-width="2"
+          focusable="false"
+          width="24"
+          height="24"
+          class="icon icon-close"
+          viewBox="0 0 24 24"
+        >
+          <path d="M17.658 6.343 6.344 17.657M17.658 17.657 6.344 6.343" stroke="currentColor"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+  {% if block.settings.page_url != blank %}
+    {% if ackerbaum_gold_member %}
+      {{ block.settings.gold_page_url.content }}
+    {% else %}
+      {{ block.settings.page_url.content }}
+    {% endif %}
+  {% else %}
+    Please selcet a page to show.
+  {% endif %}
+</div>
+
+<script>
+  const popupElement = document.querySelector('.popup-wrapper-{{ block.id }}');
+  const popupOverlay = document.querySelector('.popup-overlay-{{ block.id }}');
+  const popupContent = document.querySelector('.popup-content-{{ block.id }}');
+
+  popupElement.addEventListener('click', () => {
+    popupOverlay.style.display = 'block';
+    popupContent.style.display = 'block';
+  });
+
+  document.getElementById('close-button-{{ block.id }}').addEventListener('click', function () {
+    popupOverlay.style.display = 'none';
+    popupContent.style.display = 'none';
+  });
+
+  popupOverlay.addEventListener('click', function (event) {
+    if (event.target === this) {
+      popupOverlay.style.display = 'none';
+      popupContent.style.display = 'none';
+    }
+  });
+</script>

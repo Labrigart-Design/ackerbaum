@@ -1,0 +1,248 @@
+{% if transactions.size > 0 %}
+  <div class="page-spacer">
+    <div class="account">
+      <div class="account-header">
+        <div class="text-with-bubble justify-self-center">
+          <h1 class="h3">Guthabenübersicht</h1>
+          <span class="count-bubble count-bubble--lg">{{ transactions.size }}</span>
+        </div>
+      </div>
+
+      <div class="account__block-list">
+        <div class="v-stack gap-5">
+          <div class="order-grid-list">
+            {% for tr in transactions limit: number_of_transactions %}
+              <div class="order-grid-item rounded-sm">
+                <p class="h5">
+                  {% if tr.transaction_type == 'credit' %}
+                    {% case tr.source_type %}
+                      {% when 'cashback' %}
+                        Guthaben aus Einkauf
+                      {% when 'referral' %}
+                        Guthaben aus Empfehlung
+                      {% when 'refund' %}
+                        Guthaben aus Erstattung
+                      {% when 'review' %}
+                        Guthaben aus Bewertung
+                      {% when 'manual' %}
+                        Manuell
+                    {% endcase %}
+                  {% else %}
+                    {% case tr.source_type %}
+                      {% when 'order' %}
+                        Guthaben eingelöst
+                    {% endcase %}
+                  {% endif %}
+                </p>
+
+                <div class="order-grid-item__categories">
+                  <div class="v-stack gap-1">
+                    <p class="bold">Datum</p>
+                    <p class="text-subdued">
+                      {{ tr.created_at | date: format: 'date' }}
+                    </p>
+                  </div>
+
+                  <div class="v-stack gap-1">
+                    <p class="bold">Status</p>
+                    <p class="text-subdued">
+                      {% if tr.transaction_type == 'credit' %}
+                        {% case tr.status %}
+                          {% when 'pending' %}
+                            Ausstehend
+                          {% when 'cancelled' %}
+                            Storniert
+                          {% when 'expired' %}
+                            Abgelaufen
+                          {% when 'credited' %}
+                            Gutgeschrieben
+                        {% endcase %}
+                      {% else %}
+                        {% if tr.status == 'used' %}
+                          Eingelöst
+                        {% else %}
+                          Ausstehend
+                        {% endif %}
+                      {% endif %}
+                    </p>
+                  </div>
+
+                  <div class="v-stack gap-1">
+                    <p class="bold">Betrag</p>
+                    <p class="text-subdued">
+                      {% if tr.amount < 0 %}
+                        {{ tr.amount | times: 100 | money }}
+                      {% else %}
+                        +{{ tr.amount | times: 100 | money }}
+                      {% endif %}
+                    </p>
+                  </div>
+                </div>
+                {% comment %} <a class="button button--secondary w-full" href="https://www.ackerbaum.de/account/orders/58ce37f06254093bf0a4861e216f00d5">Bestelldetails</a> {% endcomment %}
+              </div>
+            {% endfor %}
+          </div>
+
+          <table class="order-table-list">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Aktion</th>
+                <th>Datum</th>
+                <th class="text-end">Betrag</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for tr in transactions limit: number_of_transactions %}
+                <tr>
+                  <td>
+                    {% if tr.transaction_type == 'credit' %}
+                      {% case tr.source_type %}
+                        {% when 'cashback' %}
+                          {% render 'icon' with 'picto-percent' %}
+                        {% when 'referral' %}
+                          {% render 'icon' with 'picto-love' %}
+                        {% when 'refund' %}
+                          {% render 'icon' with 'picto-return' %}
+                        {% when 'review' %}
+                          {% render 'icon' with 'picto-star' %}
+                        {% when 'manual' %}
+                          {% render 'icon' with 'picto-gift' %}
+                      {% endcase %}
+                    {% else %}
+                      {% case tr.source_type %}
+                        {% when 'order' %}
+                          {% render 'icon' with 'picto-money' %}
+                      {% endcase %}
+                    {% endif %}
+                  </td>
+                  <td data-label="Beschreibung" class="bold">
+                    {% if tr.transaction_type == 'credit' %}
+                      {% case tr.source_type %}
+                        {% when 'cashback' %}
+                          Guthaben aus Einkauf
+                        {% when 'referral' %}
+                          Guthaben aus Empfehlung
+                        {% when 'refund' %}
+                          Guthaben aus Erstattung
+                        {% when 'review' %}
+                          Guthaben aus Bewertung
+                        {% when 'manual' %}
+                          Manuell
+                      {% endcase %}
+                    {% else %}
+                      {% case tr.source_type %}
+                        {% when 'order' %}
+                          Guthaben eingelöst
+                      {% endcase %}
+                    {% endif %}
+                  </td>
+                  <td data-label="Datum" class="text-subdued">
+                    {{ tr.created_at | date: format: 'abbreviated_date' }}
+                  </td>
+                  <td
+                    data-label="{% if tr.transaction_type == "credit" %}Wert{% else %}Betrag{% endif %}"
+                    align="right"
+                    class="text-subdued"
+                  >
+                    {{ amount | times: 100 | money }}
+                  </td>
+                  <td data-label="Status" class="text-subdued">
+                    {% if tr.transaction_type == 'credit' %}
+                      {% case tr.status %}
+                        {% when 'pending' %}
+                          <div class="text-warning tw-flex">
+                            {% render 'icon' with 'picto-clock' %}
+                            <span class="tw-ml-2">Ausstehend</span>
+                          </div>
+                        {% when 'cancelled' %}
+                          <div class="text-warning tw-flex">
+                            {% render 'icon' with 'warning' %}
+                            <span class="tw-ml-2">Storniert</span>
+                          </div>
+                        {% when 'expired' %}
+                          <div class="text-danger tw-flex">
+                            {% render 'icon' with 'warning' %}
+                            <span class="tw-ml-2">Abgelaufen</span>
+                          </div>
+                        {% when 'credited' %}
+                          <div class="text-success tw-flex">
+                            {% render 'icon' with 'success' %}
+                            <span class="tw-ml-2">Gutgeschrieben</span>
+                          </div>
+                      {% endcase %}
+                    {% else %}
+                      {% if tr.status == 'used' %}
+                        <div class="text-success tw-flex">
+                          {% render 'icon' with 'success' %}
+                          <span class="tw-ml-2">Eingelöst</span>
+                        </div>
+                      {% else %}
+                        <div class="text-warning tw-flex">
+                          {% render 'icon' with 'warning' %}
+                          <span class="tw-ml-2">Ausstehend</span>
+                        </div>
+                      {% endif %}
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+              {% if transactions.size == 0 %}
+                <tr>
+                  <td colspan="4" class="no-transactions-message"></td>
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<style>
+    .customer-transactions-container {}
+  .customer-transactions-title,
+  .customer-transactions-subtitle {}
+  .customer-transactions-table {}
+
+  .customer-transactions-table td {}
+
+  .customer-transactions-table th,
+  .customer-transactions-table td {}
+  .no-transactions-message {
+    text-align: center;
+    padding: 20px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .customer-transactions-table thead {
+      display: none;
+    }
+
+    .customer-transactions-table tr {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      width: 100%;
+
+      border-top-width: 1px;
+      border-top-style: solid;
+    }
+
+    .customer-transactions-table td {
+      display: flex;
+      text-align: right;
+      border-top: none;
+      padding-inline-end: var(--spacing-4);
+    }
+
+    .customer-transactions-table td::before {
+      content: attr(data-label);
+      padding-right: 2rem;
+      flex-grow: 1;
+      text-align: left;
+    }
+  }
+</style>

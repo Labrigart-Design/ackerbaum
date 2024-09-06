@@ -1,0 +1,347 @@
+
+<div class="lb-how-it-works-section">
+  <div class="lb-how-it-works-section-holder">
+
+        <h2 class="lb-how-it-works-section-headline">{{ section.settings.headline }}</h2>
+        <p class="lb-how-it-works-section-paragraph">{{ section.settings.paragraph }}</p>
+
+    <div class="lb-how-it-works-step-holder">
+      
+    {% for block in section.blocks %}
+      <div class="lb-how-it-works-step-item">
+        <img src="{{ block.settings.image | img_url: '500x' }}">
+        <h6>{{ block.settings.heading }}</h6>
+        <p>{{ block.settings.paragraph }}</p>
+      </div>
+    {% endfor %}
+      
+    </div>
+
+  </div>
+</div>
+ 
+
+  
+<style>
+
+  .lb-how-it-works-section {
+    display: block;
+    padding: 0px 18px;
+    background: {{ section.settings.background-color }};
+  }
+
+  .lb-how-it-works-section-holder {
+    max-width: 1180px;
+    margin: auto;
+   padding: 36px 18px;
+    background: {{ section.settings.background-holder-color }};
+  }
+
+  .lb-how-it-works-section-headline {
+    color: {{ section.settings.schriftfarbe }};
+    margin: 0px auto 9px auto;
+    text-align: center;
+    max-with: 600px;
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 34px;
+    padding: 0px 18px 0px 18px;
+font-family: "SofiaProSemiBold" !important;
+  }
+
+  .lb-how-it-works-section-paragraph {
+    color: {{ section.settings.paragraphschriftfarbe }};
+margin: 0px auto 18px auto;
+    text-align: center;
+    max-with: 600px;
+    font-size: 20px;
+    line-height: 26px;
+    padding: 0px 18px 0px 18px;
+  }
+    
+  .lb-how-it-works-step-holder {
+    max-width: 1180px;
+    margin: auto;
+    display: flex;
+  }
+
+  .lb-how-it-works-step-item {
+    width: 31.333%;
+    margin: 1%;
+    padding: 18px;
+    background: {{ section.settings.background-step-color }};
+    text-align: center;
+  }
+
+  .lb-how-it-works-step-item img {
+    display: block;
+    width: 100%;
+    margin: 0px 0px 18px 0px;
+  }
+
+  .lb-how-it-works-step-item h6 {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 26px;
+    margin: 0px 0px 9px 0px;
+    color: {{ section.settings.schriftfarbe }};
+font-family: "SofiaProSemiBold" !important;
+  }
+  
+  .lb-how-it-works-step-item p {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    line-height: 22px;
+    margin: 0px;
+    color: {{ section.settings.paragraphschriftfarbe }};
+  }
+  
+
+  @media only screen and (max-width: 600px) {  
+
+  .lb-how-it-works-section {
+    padding: 0px 9px;
+  }
+    
+ .lb-how-it-works-step-holder {
+    display: block;
+   padding: 0px 18px;
+  }
+    
+  .lb-how-it-works-step-item {
+    width: 100%!important;
+    margin: 0px 0% 9px 0%;
+  }
+    
+  }
+
+</style>
+
+ 
+{% schema %}
+{
+  "name": {
+    "en": "Lb How it works",
+    "de": "Lb How it works"
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": {
+        "en": "Section Settings",
+        "de": "Abschnittseinstellungen"
+      }
+    },
+        {
+          "type": "text",
+          "id": "headline",
+          "default": "Und so einfach gehts",
+          "label": {
+            "en": "Headline",
+            "de": "Überschrift"
+          }
+        },
+        {
+          "type": "text",
+          "id": "paragraph",
+          "default": "Schon in wenigen Schritten.",
+          "label": {
+            "en": "Paragraph",
+            "de": "Text"
+          }
+        },
+    {
+      "type": "header",
+      "content": {
+        "en": "Section Settings",
+        "de": "Abschnittseinstellungen"
+      }
+    },
+    {
+      "type": "color",
+      "id": "background-color",
+      "default": "#f2f2f2",
+      "label": {
+        "en": "Background Color",
+        "de": "Hintergrundfarbe"
+      },
+      "info": {
+        "en": "Choose the background color of the section",
+        "de": "Wähle die Hintergrundfarbe des Abschnitts"
+      }
+    },
+    {
+      "type": "color",
+      "id": "background-holder-color",
+      "default": "#f2f2f2",
+      "label": {
+        "en": "Background Color",
+        "de": "Hintergrundfarbe"
+      },
+      "info": {
+        "en": "Choose the background color of the section",
+        "de": "Wähle die Hintergrundfarbe des Abschnitts"
+      }
+    },
+    {
+      "type": "color",
+      "id": "background-step-color",
+      "default": "#f2f2f2",
+      "label": {
+        "en": "Background Color",
+        "de": "Hintergrundfarbe"
+      },
+      "info": {
+        "en": "Choose the background color of the section",
+        "de": "Wähle die Hintergrundfarbe des Abschnitts"
+      }
+    },
+    {
+      "type": "header",
+      "content": "."
+    },
+    {
+      "type": "header",
+      "content": {
+        "en": "Step Settings",
+        "de": "Schritt-Einstellungen"
+      }
+    },
+    {
+      "type": "range",
+      "id": "abgerundete_ecken",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 6,
+      "label": {
+        "en": "Rounded Corners",
+        "de": "Link Abrundung"
+      }
+    },
+    {
+      "type": "color",
+      "id": "schriftfarbe",
+      "default": "#000",
+      "label": {
+        "en": "Text Color",
+        "de": "Schriffarbe"
+      }
+    },
+    {
+      "type": "color",
+      "id": "paragraphschriftfarbe",
+      "default": "#000",
+      "label": {
+        "en": "Paragraph Text Color",
+        "de": "Paragraph Schriftfarbe"
+      }
+    },
+    {
+      "type": "color",
+      "id": "link-backgroundcolor",
+      "default": "#ffffff",
+      "label": {
+        "en": "Background Color",
+        "de": "Hintergrundfarbe"
+      }
+    },
+    {
+      "type": "color",
+      "id": "active-font-color",
+      "default": "#ffffff",
+      "label": {
+        "en": "Active Text Color",
+        "de": "Aktive Schriffarbe"
+      }
+    },
+    {
+      "type": "color",
+      "id": "active-link-border-color",
+      "default": "#000",
+      "label": {
+        "en": "Active Border Color",
+        "de": "Aktive Randfarbe"
+      }
+    },
+    {
+      "type": "color",
+      "id": "active-backgroundcolor",
+      "default": "#000",
+      "label": {
+        "en": "Active Background Color",
+        "de": "Aktive Hintergrundfarbe"
+      }
+    },
+    {
+      "type": "font_picker",
+      "id": "categoryimagenavigationfontfamily",
+      "default": "sans-serif",
+      "label": {
+        "en": "Font Family",
+        "de": "Schriftart"
+      }
+    },
+    {
+      "type": "text",
+      "id": "lb-category-image-navigation-customfont",
+      "label": {
+        "en": "Custom Font Family",
+        "de": "Eigene Schriftartfamilie"
+      },
+      "info": {
+        "en": "Upload your font into Shopify content and paste the file URL here.",
+        "de": "Lade Deine Schriftart in den Shopify-Inhalten hoch und füge hier die Datei-URL ein."
+      }
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Block",
+      "type": "block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Anzeigebild"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Link Name",
+          "label": {
+            "en": "Headline",
+            "de": "Linkname"
+          }
+        },
+        {
+          "type": "textarea",
+          "id": "paragraph",
+          "label": "Text",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lb How it works",
+      "blocks": [
+        {
+          "type": "block"
+        },
+        {
+          "type": "block"
+        },
+        {
+          "type": "block"
+        },
+        {
+          "type": "block"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

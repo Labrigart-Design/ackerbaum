@@ -1,0 +1,198 @@
+<div class="lb-image-with-text">
+  <div class="lb-image-with-text-holder" style="{% if section.settings.reverse == true %}flex-direction: row-reverse;{% endif %}">
+    <div class="lb-image-with-text-divs">
+      <img src="{{ section.settings.image | img_url: '800x' }}" alt="{{ section.settings.headline }}" width="800" height="900">
+    </div>
+    <div class="lb-image-with-text-divs">
+      {% if section.settings.badge != blank %}<div class="lb-image-with-text-badge">{{ section.settings.badge }}</div>{% endif %}
+      
+      <h3 style="color: {{ section.settings.font-color }};">{{ section.settings.headline }}</h3>
+      <p style="color: {{ section.settings.font-color }};">{{ section.settings.paragraph }}</p>
+  
+      {% if section.settings.html != blank %}<div>{{ section.settings.html }}</div>{% endif %}
+      {% if section.settings.linktext != blank %}<a href="{{ section.settings.linkurl }}">{{ section.settings.linktext }}</a>{% endif %}      
+    </div>
+  </div>
+</div>
+
+<style>
+  .lb-image-with-text {
+    padding: 72px 18px;
+    background: {{ section.settings.background-color }};
+    background-image: url('https://cdn.shopify.com/s/files/1/0672/5740/1608/files/Design_ohne_Titel_1.png?v=1710423658');
+    background-size: 100%;
+    background-position: top;
+    background-repeat: no-repeat; 
+    overflow: hidden;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .lb-image-with-text   {
+      background-image: url('https://cdn.shopify.com/s/files/1/0672/5740/1608/files/Kopie_von_Section_Background_800_x_1200_px.png?v=1714292887');
+    }
+  }
+
+  .lb-image-with-text-holder  {
+    max-width: 1180px;
+    margin: auto;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lb-image-with-text-divs  {
+    width: 50%;
+    padding: 18px;
+  }
+
+  .lb-image-with-text-badge {
+    padding: 4px 12px;
+    border-radius: 6px;
+    color: white;
+    background: #fc7811;
+    margin-bottom: 9px;
+    font-size: 14px;
+    display: inline-block;
+  }
+
+  .lb-image-with-text-holder h3 {
+    color: #311d0f;
+    font-family: "SofiaProSemiBold" !important;
+    font-size: 24px!important;
+    line-height: 32px!important;
+    max-width: 500px;
+    color: white;
+    font-size: 26px!important;
+    line-height: 34px!important;
+    margin: 0px 0px 9px 0px!important;
+  }
+
+  .lb-image-with-text-holder p {
+    color: #84BD00;
+    margin: 0px 0px 18px 0px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .lb-image-with-text-holder img {
+    display: block;
+    width: 100%;
+  }
+
+  .lb-image-with-text-holder a {
+    background: black;
+    border-radius: 6px;
+    padding: 12px 36px;
+    color: white;
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  @media only screen and (max-width: 600px) {
+  .lb-image-with-text-holder  {display: block;}
+  .lb-image-with-text-divs  {width: 100%;padding: 0px;}
+  .lb-image-with-text-holder img {margin-bottom: 18px;}
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Lb Bild mit Text",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Einstellungen"
+    },
+    {
+      "type": "color",
+      "id": "background-color",
+      "default": "#f2f2f2",
+      "label": "Hintergrundfarbe",
+      "info": "Wähle den Hintergrund der Section"
+    },
+    {
+      "type": "color",
+      "id": "font-color",
+      "default": "#f2f2f2",
+      "label": "Schrfitfarbe"
+    },
+    {
+      "type": "header",
+      "content": "Link Einstellungen"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Bild"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badgetext"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "default": "Hallo",
+      "label": "Headline"
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph",
+      "default": "Hallo",
+      "label": "Paragraph"
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse",
+      "default": false,
+      "label": "Bild nach rechts"
+    },
+    {
+      "type": "text",
+      "id": "paddingtop",
+      "default": "72",
+      "label": "Abstand oben"
+    },
+    {
+      "type": "text",
+      "id": "paddingright",
+      "default": "18",
+      "label": "Abstand rechts"
+    },
+    {
+      "type": "text",
+      "id": "paddingbottom",
+      "default": "72",
+      "label": "Abstand unten"
+    },
+    {
+      "type": "text",
+      "id": "paddingleft",
+      "default": "18",
+      "label": "Abstand links"
+    },
+    {
+      "type": "liquid",
+      "id": "html",
+      "label": "Custom Code"
+    },
+    {
+      "type": "text",
+      "id": "linktext",
+      "label": "Link text"
+    },
+    {
+      "type": "text",
+      "id": "linkurl",
+      "label": "Link URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "lb Text mit bIld"
+    }
+  ]
+}
+{% endschema %}

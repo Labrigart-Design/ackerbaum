@@ -1,0 +1,941 @@
+<div class="lb-pdp-bento-box-section">
+  <div class="lb-pdp-bento-box-section-holder">
+
+    <div class="lb-pdp-bento-box-first-row">
+      {% for block in section.blocks %}
+        {% if block.settings.row == 'row1' %}
+          {% case block.type %}
+            {% when 'lb-productinfo' %}
+              <div class="lb-pdp-bento-box-productinfo">
+                <h3 class="lb-pdp-bento-box-productinfo-h3">{{ block.settings.product_title }}</h3>
+                <div class="lb-pdp-bento-box-productinfo-p-div">{{ block.settings.product_description }}<div class="lb-pdp-bento-box-productinfo-p-div-gradient"></div></div>
+                <div class="lb-pdp-bento-box-productinfo-show-more"><span class="lb-pdp-bento-box-productinfo-show-more-opener-wording">mehr</span><span class="lb-pdp-bento-box-productinfo-show-more-closer-wording">weniger</span> anzeigen</div>
+              </div>
+            
+            {% when 'lb-accordion' %}
+            {% unless product.tags contains 'lb-no-accordion' %} 
+              <div class="lb-pdp-bento-box-accordion">
+                    <div class="lb-pdp-bento-box-accordion-label"> 
+                {{ block.settings.accordion_title }}
+                <svg class="lb-pdp-bento-box-accordion-label-svg" width="52px" height="30px" viewBox="0 0 52 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <title>Path 2</title>
+                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Artboard-Copy-5" transform="translate(-948, -1294)" stroke="#000000" stroke-width="5">
+                      <g id="Rectangle-2-Copy-7" transform="translate(41, 1242)">
+                        <polyline id="Path-2" points="909.741444 54.6644714 933.105583 78.028611 956.469723 54.6644714"></polyline>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                    </div>
+                <div class="lb-pdp-bento-box-accordion-content">
+                  {{ block.settings.accordion_content }}
+                </div>
+              </div>
+              {% endunless %}
+            
+            {% when 'lb-product' %}
+              <div class="lb-pdp-bento-box-inclusive-product">
+                <img src="{{ block.settings.inclusive_product_image | img_url: 'medium' }}">
+                <div>
+                  <h5>{{ block.settings.inclusive_product_title }}</h5>
+                  <p>{{ block.settings.inclusive_product_description }}</p>
+                </div>
+              </div>
+            {% when 'lb-benefits' %}
+              <div class="lb-pdp-bento-box-benefits">
+                <h4>{{ block.settings.benefit_title }}</h4>
+                <div>
+                  <p>{{ block.settings.benefit_description }}</p>
+                </div>
+              </div>
+            {% when 'lb-video' %}
+              <div class="lb-pdp-bento-box-video" style="background-image: url('{{ block.settings.video_thumbnail | img_url: 'medium' }}')">
+                <div>
+                  <svg width="98px" height="98px" viewBox="0 0 98 98" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <title>Group</title>
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Artboard-Copy-5" transform="translate(-218, -2836)">
+                        <g id="Rectangle-2" transform="translate(41, 2658)">
+                          <g id="Group" transform="translate(177, 178)">
+                            <circle id="Oval" stroke="#FFFFFF" stroke-width="4" cx="49" cy="49" r="47"></circle>
+                            <path d="M44.5604514,30.0670118 L68.427476,42.5193725 C71.855007,44.3076495 73.1838849,48.5358974 71.3956079,51.9634285 C70.7331512,53.2331371 69.6971846,54.2691037 68.427476,54.9315603 L44.5604514,67.383921 C41.1329204,69.1721981 36.9046725,67.8433201 35.1163954,64.4157891 C34.5948487,63.4161579 34.3224894,62.3053347 34.3224894,61.1778271 L34.3224894,36.2731057 C34.3224894,32.4071125 37.4564961,29.2731057 41.3224894,29.2731057 C42.449997,29.2731057 43.5608202,29.5454651 44.5604514,30.0670118 Z" id="Path" fill="#FFFFFF"></path>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                  Besten Übungen
+                </div>
+              </div>
+            {% when 'lb-imageoverlay' %}
+              <div class="lb-pdp-bento-box-image-with-textoverlay">
+                <div>{{ block.settings.overlay_text }}</div>
+                <img src="{{ block.settings.image_overlay | img_url: 'medium' }}">
+              </div>
+              <div>
+                {{ block.settings.video_url }}
+              </div>
+          {% endcase %}
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    
+
+    <div class="lb-pdp-bento-box-second-row">
+      {% for block in section.blocks %}
+        {% if block.settings.row == 'row2' %}
+          {% case block.type %}
+            {% when 'lb-productinfo' %}
+              <div class="lb-pdp-bento-box-productinfo">
+                <h3>{{ block.settings.product_title }}</h3>
+                <p>{{ block.settings.product_description }}</p>
+                <div>Mehr anzeigen</div>
+              </div>
+            {% when 'lb-accordion' %}
+              <div class="lb-pdp-bento-box-accordion">
+                <div class="lb-pdp-bento-box-accordion-label"> 
+                  {{ block.settings.accordion_title }}
+                  <svg width="52px" height="30px" viewBox="0 0 52 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <title>Path 2</title>
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Artboard-Copy-5" transform="translate(-948, -1294)" stroke="#000000" stroke-width="5">
+                        <g id="Rectangle-2-Copy-7" transform="translate(41, 1242)">
+                          <polyline id="Path-2" points="909.741444 54.6644714 933.105583 78.028611 956.469723 54.6644714"></polyline>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+                <div class="lb-pdp-bento-box-accordion-content">
+                  {{ block.settings.accordion_content }}
+                </div>
+              </div>
+            {% when 'lb-product' %}
+              <div class="lb-pdp-bento-box-inclusive-product">
+                <img src="{{ block.settings.inclusive_product_image | img_url: 'medium' }}">
+                <div>
+                  <h5>{{ block.settings.inclusive_product_title }}</h5>
+                  <p>{{ block.settings.inclusive_product_description }}</p>
+                </div>
+              </div>
+            {% when 'lb-benefits' %}
+              <div class="lb-pdp-bento-box-benefits">
+                <h4>{{ block.settings.benefit_title }}</h4>
+                <div>
+                  <p>{{ block.settings.benefit_description }}</p>
+                </div>
+                <div class="lb-pdp-bento-box-benefits-load-more">
+                  <span class="lb-pdp-bento-box-benefits-load-more-opener-wording">Alle Vorteile ansehen</span><span class="lb-pdp-bento-box-benefits-load-more-closer-wording">Schließen</span>
+                </div>
+              </div>
+            {% when 'lb-video' %}
+              <div class="lb-pdp-bento-box-video" style="background-image: url('{{ block.settings.video_thumbnail | img_url: 'medium' }}')">
+                <div>
+                  <svg width="98px" height="98px" viewBox="0 0 98 98" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <title>Group</title>
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Artboard-Copy-5" transform="translate(-218, -2836)">
+                        <g id="Rectangle-2" transform="translate(41, 2658)">
+                          <g id="Group" transform="translate(177, 178)">
+                            <circle id="Oval" stroke="#FFFFFF" stroke-width="4" cx="49" cy="49" r="47"></circle>
+                            <path d="M44.5604514,30.0670118 L68.427476,42.5193725 C71.855007,44.3076495 73.1838849,48.5358974 71.3956079,51.9634285 C70.7331512,53.2331371 69.6971846,54.2691037 68.427476,54.9315603 L44.5604514,67.383921 C41.1329204,69.1721981 36.9046725,67.8433201 35.1163954,64.4157891 C34.5948487,63.4161579 34.3224894,62.3053347 34.3224894,61.1778271 L34.3224894,36.2731057 C34.3224894,32.4071125 37.4564961,29.2731057 41.3224894,29.2731057 C42.449997,29.2731057 43.5608202,29.5454651 44.5604514,30.0670118 Z" id="Path" fill="#FFFFFF"></path>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                  {{ block.settings.overlay_text }}                
+                </div>
+              </div>
+            <div class="lb-pdp-bento-box-video-overlay-inner">
+              <div class="lb-pdp-bento-box-video-overlay-close">x</div>
+            <video width="640" height="360" controls>
+  <source src="{{ block.settings.video_url }}" type="video/mp4">
+</video>
+            </div>
+            <div class="lb-pdp-bento-box-video-overlay">
+            </div>
+            {% when 'lb-imageoverlay' %}
+              <div class="lb-pdp-bento-box-image-with-textoverlay"> 
+                {% if block.settings.image_overlay_text != blank %}
+                <div>{{ block.settings.image_overlay_text }}</div>
+                {% endif %}
+                <!--<img src="{{ block.settings.image_overlay | img_url: '900x' }}">-->
+
+                {% if product.metafields.custom.description_benefit_image != blank %}
+  <img src="{{ product.metafields.custom.description_benefit_image | file_url }}">
+                {% else %}
+{%- assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image -%}
+  <img src="{{ featured_image | img_url: '1024x' }}" alt="{{ featured_image.alt | escape }}">
+{% endif %}
+                
+              </div>
+
+
+                        {% when 'lb-custom-liquid' %}
+             {{ block.settings.custom_liquid }}
+          
+          {% endcase %}
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $(".lb-pdp-bento-box-accordion-label").click(function() {
+      var content = $(this).next(".lb-pdp-bento-box-accordion-content");
+      content.toggleClass("lb-pdp-bento-box-accordion-content-show");
+      $(this).find(".lb-pdp-bento-box-accordion-label-svg").toggleClass("lb-pdp-bento-box-accordion-label-svg-active");
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function() {
+     $(".lb-pdp-bento-box-video").click(function() {
+     $(".lb-pdp-bento-box-video-overlay-inner").toggleClass("lb-pdp-bento-box-video-overlay-active");
+     $(".lb-pdp-bento-box-video-overlay").toggleClass("lb-pdp-bento-box-video-overlay-active");
+    });
+  });
+
+  $(document).ready(function() {
+     $(".lb-pdp-bento-box-video-overlay-close").click(function() {
+     $(".lb-pdp-bento-box-video-overlay-inner").toggleClass("lb-pdp-bento-box-video-overlay-active");
+     $(".lb-pdp-bento-box-video-overlay").toggleClass("lb-pdp-bento-box-video-overlay-active");
+    });
+  });
+
+  $(document).ready(function() { 
+     $(".lb-pdp-bento-box-benefits-load-more").click(function() {
+     $(".lb-pdp-bento-box-benefits").toggleClass("lb-pdp-bento-box-benefits-active");
+     $(".lb-pdp-bento-box-benefits-load-more").toggleClass("lb-pdp-bento-box-benefits-load-more-active");
+     $(".lb-pdp-bento-box-benefits-load-more-opener-wording").toggleClass("lb-pdp-bento-box-benefits-load-more-opener-wording-active");
+     $(".lb-pdp-bento-box-benefits-load-more-closer-wording").toggleClass("lb-pdp-bento-box-benefits-load-more-closer-wording-active");
+    });
+  });
+
+  $(document).ready(function() { 
+     $(".lb-pdp-bento-box-productinfo-show-more").click(function() {
+     $(".lb-pdp-bento-box-productinfo-p-div").toggleClass("lb-pdp-bento-box-productinfo-p-div-active");
+     $(".lb-pdp-bento-box-productinfo-p-div-gradient").toggleClass("lb-pdp-bento-box-productinfo-p-div-gradient-none");
+    });
+  });
+
+  $(document).ready(function() { 
+     $(".lb-pdp-bento-box-productinfo-show-more").click(function() {
+     $(".lb-pdp-bento-box-productinfo-show-more-opener-wording").toggleClass("lb-pdp-bento-box-productinfo-show-more-opener-wording-active");
+     $(".lb-pdp-bento-box-productinfo-show-more-closer-wording").toggleClass("lb-pdp-bento-box-productinfo-show-more-closer-wording-active");
+    });
+  });
+  
+</script>
+
+
+
+<style>
+
+  .lb-pdp-bento-box-section {
+    padding: 72px 18px 0px 18px;
+    background: #f2f0eb;
+    position: relative;
+    background-image: url('https://cdn.shopify.com/s/files/1/0672/5740/1608/files/Design_ohne_Titel_1.png?v=1710423658');
+    background-size: 100%;
+    background-position: top;
+    background-repeat: no-repeat; 
+  }
+
+@media only screen and (max-width: 600px) {
+  .lb-pdp-bento-box-section  {
+    background-image: url('https://cdn.shopify.com/s/files/1/0672/5740/1608/files/Kopie_von_Section_Background_800_x_1200_px.png?v=1714292887');
+  }
+}
+
+  .lb-pdp-bento-box-section-holder {
+  max-width: 1180px;
+    margin: auto;
+    display: flex;
+  }
+
+  .lb-pdp-bento-box-first-row {
+    width: 50%;
+    padding-right: 18px;
+  }
+
+  .lb-pdp-bento-box-second-row {
+    width: 50%;    
+  }
+
+@media only screen and (max-width: 600px) {
+  .lb-pdp-bento-box-section-holder {
+    display: block;
+  }
+  
+  .lb-pdp-bento-box-first-row {
+    width: 100%;
+    padding-right: 0px;
+  }
+
+  .lb-pdp-bento-box-second-row {
+    width: 100%;    
+  }
+}
+
+
+
+  
+
+
+
+    .lb-pdp-bento-box-productinfo {
+       margin-bottom: 9px; 
+  }
+
+    .lb-pdp-bento-box-productinfo-h3 {
+      font-size: 26px!important;
+      line-height: 32px!important;
+      margin: 0px 0px 9px 0px;
+      font-weight: bold;
+      color: #311d0f;
+      font-family: "SofiaProSemiBold" !important;
+  }
+
+    .lb-pdp-bento-box-productinfo-p-div {
+      font-size: 16px;
+      line-height: 24px;
+      margin: 0px 0px 5px 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+      transition: all 0.3s;
+      max-height: 150px;
+      position: relative;
+  }
+
+    .lb-pdp-bento-box-productinfo-p-div h1, .lb-pdp-bento-box-productinfo-p-div h2, .lb-pdp-bento-box-productinfo-p-div h3, .lb-pdp-bento-box-productinfo-p-div h4, .lb-pdp-bento-box-productinfo-p-div h5, .lb-pdp-bento-box-productinfo-p-div h6 {
+      font-size: 20px!important;
+      line-height: 28px!important;
+      margin-top: 9px;
+  }
+
+    .lb-pdp-bento-box-productinfo-p-div-active {
+max-height: 5000px;
+  }
+  
+    .lb-pdp-bento-box-productinfo-p-div-gradient {
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+  height: 100px;
+background: linear-gradient(180deg, #f2f0eb00 0%, #f2f0eb 100%);
+    pointer-events: none!important;
+      opacity: 1;
+    
+  }
+
+    .lb-pdp-bento-box-productinfo-p-div-gradient-none {
+      opacity: 0;
+  }
+
+
+  .lb-pdp-bento-box-productinfo-show-more-closer-wording {
+    display: none;
+  }
+
+  .lb-pdp-bento-box-productinfo-show-more-opener-wording-active {
+    display: none;
+  }
+
+  .lb-pdp-bento-box-productinfo-show-more-closer-wording-active {
+    display: inline-block;
+    text-decoration: underline;
+  }
+
+
+  .lb-pdp-bento-box-productinfo-show-more {
+    font-weight: bold;
+    text-decoration: underline;
+    margin: 0px 0px 24px 0px;
+    cursor: pointer;
+    color: #2f6e2e;
+          font-family: "SofiaProSemiBold" !important;
+  }
+
+
+  
+
+  
+
+
+  .lb-pdp-bento-box-accordion-label {
+    padding: 12px 45px 12px 18px;
+    border-radius: 50px;
+    border: 1px solid #311d0f;
+    margin-bottom: 9px;
+    position: relative;
+    cursor: pointer;
+    color: #311d0f;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: "SofiaProSemiBold" !important;
+  }
+
+  .lb-pdp-bento-box-accordion-label-svg {
+    width: 18px;
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translate(0%, -50%);
+    transition: all 0.3s;
+  }
+
+  .lb-pdp-bento-box-accordion-label-svg-active {
+  transform: rotate(180deg) translate(0%, 50%);
+  }
+
+  .lb-pdp-bento-box-accordion-content {
+    max-height: 0px;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .lb-pdp-bento-box-accordion-content-show {
+    max-height: 5000px;
+    margin-bottom: 18px;
+  }
+
+  .lb-pdp-bento-box-accordion-content {
+    font-size: 16px;
+    line-height: 22px;
+    padding: 0px 18px;
+  }
+
+
+  
+
+  
+
+
+  .lb-pdp-bento-box-inclusive-product {
+    background: #CEDEDE;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+    margin: 0px 0px 9px 0px;
+  }
+
+  .lb-pdp-bento-box-inclusive-product div {
+    background: #CEDEDE;
+  }
+
+  .lb-pdp-bento-box-inclusive-product img {
+    max-width: 82px;
+    margin-right: 9px;
+    border-radius: 9px;
+  }
+
+  .lb-pdp-bento-box-inclusive-product h5 {
+    margin: 0px 0px 5px 0px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .lb-pdp-bento-box-inclusive-product p {
+    margin: 0px 0px 9px 0px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  
+
+
+
+  
+  .lb-pdp-bento-box-benefits {
+    background: black;
+    border-radius: 15px;
+    padding: 18px;
+    margin-bottom: 9px;
+    max-height: 400px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s;
+  }
+
+.lb-pdp-bento-box-benefits-active {
+max-height: 5000px;
+}
+
+  .lb-pdp-bento-box-benefits-load-more {
+    position: absolute;
+    bottom: -18px;
+    left: 0px;
+    width: 100%;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+    color: white;
+    padding: 42px 18px 24px 18px;
+    text-align: center;
+    text-decoration: underline;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .lb-pdp-bento-box-benefits-load-more-active {
+    position: relative;
+      padding: 18px;
+  }
+
+  .lb-pdp-bento-box-benefits-load-more-opener-wording-active {
+     display: none;
+  }
+
+  .lb-pdp-bento-box-benefits-load-more-closer-wording {
+    display: none;
+  }
+
+  .lb-pdp-bento-box-benefits-load-more-closer-wording-active {
+    display: block;
+  }
+
+  .lb-pdp-bento-box-benefits h4 {
+    color: #DDEBEB;
+    font-size: 20px;
+    line-height: 26px;
+    margin: 0px 0px 18px 0px;
+  }
+
+  .lb-pdp-bento-box-benefits div {
+    margin: 0px 0px 18px 0px;
+  }
+
+  .lb-pdp-bento-box-benefits h5 {
+    color: white;
+    font-size: 16px;
+    line-height: 22px;
+    margin: 0px 0px 5px 0px;
+  }
+
+  .lb-pdp-bento-box-benefits p {
+    color: white;
+    font-size: 16px;
+    line-height: 22px;
+    margin: 0px 0px 0px 0px;
+  }
+
+
+  
+
+  
+
+  .lb-pdp-bento-box-video {
+    background: black;
+    border-radius: 15px;
+    padding: 72px 18px;
+    margin-bottom: 9px;
+    background-position: center center;
+    background-size: cover;
+    cursor: pointer;
+  }
+
+  .lb-pdp-bento-box-video div {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lb-pdp-bento-box-video div svg {
+    width: 42px;
+    margin: 0px 9px 0px 0px;
+  }
+
+  .lb-pdp-bento-box-video-overlay-inner {
+position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 15px;
+    padding: 18px;
+    background: white;
+    z-index: 2147483647;
+    display: none;
+  }
+
+.lb-pdp-bento-box-video-overlay-close {
+  border-radius: 500px;
+  background: white;
+  padding: 9px;
+  color: black;
+  position: absolute;
+  top: -18px;
+  right: -18px;
+  width: 42px;
+  height: 42px;
+}
+
+  .lb-pdp-bento-box-video-overlay {
+position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+      height: 100%;
+    background: black;
+    opacity: 0.5;
+      z-index: 2147483646;
+     display: none;
+  }
+
+  .lb-pdp-bento-box-video-overlay-active {
+  display: block;
+  }
+
+
+  
+
+  .lb-pdp-bento-box-image-with-textoverlay {
+    background: black;
+    display: block;
+    width: 100%;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 30px;
+  }
+
+  .lb-pdp-bento-box-image-with-textoverlay div {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    padding: 18px;
+    width: 100%;
+background: linear-gradient(180deg, #00000000 0%, #000000 100%);
+    text-align: center;
+    color: white;
+        font-size: 22px;
+  font-family: "SofiaProSemiBold" !important;
+  }
+
+  .lb-pdp-bento-box-image-with-textoverlay img {
+    display: block;
+    width: 100%;
+  }
+
+
+  
+  
+</style>
+
+
+
+
+{% schema %}
+{
+  "name": "lb Bento Box",
+  "settings": [
+    {
+      "type": "color",
+      "id": "backgroundcolor",
+      "label": {
+        "en": "Hintergrundfarbe",
+        "de": "Hintergrundfarbe"
+      },
+      "default": "#f2f2f2"
+    },
+    {
+      "type": "image_picker",
+      "id": "lb-pdp-compare-desktop",
+      "label": "Bannerbild"
+    },
+    {
+      "type": "image_picker",
+      "id": "lb-pdp-compare-mobile",
+      "label": "Bannerbild"
+    },
+    {
+      "type": "checkbox",
+      "id": "link-active",
+      "label": "Badge verlinken",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "link-url",
+      "label": "Badge URL"
+    },
+    {
+      "type": "range",
+      "id": "borderradius",
+      "label": {
+        "en": "Badge Abrundung",
+        "de": "Badge Abrundung"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "max-width",
+      "label": {
+        "en": "Badge Maximale Breite",
+        "de": "Badge Maximale Breite"
+      },
+      "min": 200,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 400
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "lb-productinfo",
+      "name": "Produktinformationen",
+      "settings": [
+        {
+          "type": "select",
+          "id": "row",
+          "label": "Select Row",
+          "options": [
+            {
+              "value": "row1",
+              "label": "Row 1"
+            },
+            {
+              "value": "row2",
+              "label": "Row 2"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "product_title",
+          "label": "Produkt Titel",
+          "default": "{{ product.title }}"
+        },
+        {
+          "type": "liquid",
+          "id": "product_description",
+          "label": "Produkt Beschreibung",
+          "default": "{{ product.description }}"
+        }
+      ]
+    },
+    {
+      "type": "lb-accordion",
+      "name": "Akkordion",
+      "settings": [
+                {
+          "type": "select",
+          "id": "row",
+          "label": "Select Row",
+          "options": [
+            {
+              "value": "row1",
+              "label": "Row 1"
+            },
+            {
+              "value": "row2",
+              "label": "Row 2"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "accordion_title",
+          "label": "Akkordion Titel",
+          "default": "Lieferumfang"
+        },
+        {
+          "type": "liquid",
+          "id": "accordion_content",
+          "label": "Akkordion Content",
+          "default": "Ich bin ein Text"
+        }
+      ]
+    },
+    {
+      "type": "lb-product",
+      "name": "Inklusives Produkt",
+      "settings": [
+                {
+          "type": "select",
+          "id": "row",
+          "label": "Select Row",
+          "options": [
+            {
+              "value": "row1",
+              "label": "Row 1"
+            },
+            {
+              "value": "row2",
+              "label": "Row 2"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "inclusive_product_image",
+          "label": "Inklusives Produktbild"
+        },
+        {
+          "type": "text",
+          "id": "inclusive_product_title",
+          "label": "Inklusives Produkt Titel",
+          "default": "wefwefwef"
+        },
+        {
+          "type": "textarea",
+          "id": "inclusive_product_description",
+          "label": "Inklusives Produkt Beschreibung",
+          "default": "wlkefw fwjefio wef wfe"
+        }
+      ]
+    },
+    {
+      "type": "lb-benefits", 
+      "name": "Vorteile der ",
+      "settings": [
+                {
+          "type": "select",
+          "id": "row",
+          "label": "Select Row",
+          "options": [
+            {
+              "value": "row1",
+              "label": "Row 1"
+            },
+            {
+              "value": "row2",
+              "label": "Row 2"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "benefit_title",
+          "label": "Titel",
+          "default": "Vorteile der Klimmzugstange"
+        },
+        {
+          "type": "textarea",
+          "id": "benefit_description",
+          "label": "Beschreibung",
+          "default": "kweflw hefwef h\nehf kwjhf kwh wel fhwl fhwekjf hwef kwhefw hfwef hw flkweh fwkl, fhwlkfwhefn"
+        }
+      ]
+    },
+    {
+      "type": "lb-video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "select",
+          "id": "row",
+          "label": "Select Row",
+          "options": [
+            {
+              "value": "row1",
+              "label": "Row 1"
+            },
+            {
+              "value": "row2",
+              "label": "Row 2"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "video_thumbnail",
+          "label": "Video Thumbnail"
+        },
+        {
+          "label": "Video URL",
+          "id": "video_url",
+          "type": "text",
+          "info": "Enter the URL of the video you want to display."
+        },
+        {
+          "type": "text",
+          "id": "overlay_text",
+          "label": "Overlay Text"
+        }
+      ]
+    },
+    {
+      "type": "lb-imageoverlay",
+      "name": "Bildüberlagerung",
+      "settings": [
+                {
+          "type": "select",
+          "id": "row",
+          "label": "Select Row",
+          "options": [
+            {
+              "value": "row1",
+              "label": "Row 1"
+            },
+            {
+              "value": "row2",
+              "label": "Row 2"
+            } 
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image_overlay",
+          "label": "Bildüberlagerung"
+        },
+        {
+          "type": "liquid",
+          "id": "image_overlay_text",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "lb-custom-liquid",
+      "name": "Custom Liquid",
+      "settings": [
+                {
+          "type": "select",
+          "id": "row",
+          "label": "Select Row",
+          "options": [
+            {
+              "value": "row1",
+              "label": "Row 1"
+            },
+            {
+              "value": "row2",
+              "label": "Row 2"
+            }
+          ]
+        },
+                {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Custom Liquid"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "HTML",
+      "name": "lb Bento Box",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

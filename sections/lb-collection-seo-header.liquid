@@ -1,0 +1,181 @@
+<div class="lb-collection-seo-header">
+  <div class="lb-collection-seo-header-holder">
+    <h1>{% if collection.metafields.custom.seo_title != blank %}{{ collection.metafields.custom.seo_title }}{% else %}{{ collection.title }}{% endif %}</h1>
+    <p class="lb-collection-seo-header-p"> {{ collection.metafields.custom.botanischer_name }} / {{ collection.metafields.custom.seo_description }}<span class="lb-collection-seo-header-p-fade"></span></p>
+     <div class="lb-collection-seo-header-opener"><span class="lb-collection-seo-header-opener-wording">mehr</span><span class="lb-collection-seo-header-closer-wording">weniger</span> anzeigen</div>
+  </div> 
+</div>
+
+<!-- {{ collection.metafields.custom.seo_footer_box }} -->
+
+
+<style>
+
+  .lb-collection-seo-header {
+    padding: 36px 18px 0px 18px; 
+  }
+
+.lb-collection-seo-header-holder {
+  display: block;
+  max-width: 900px;
+  margin: auto;
+}
+
+.lb-collection-seo-header h1 {
+  text-align: center!important;
+  font-size: 26px!important;
+  line-height: 32px!important;
+  font-family: "SofiaProLight"!important;
+  color: #311d0f!important;
+  font-weight: bold!important;
+  max-width: 600px;
+  margin: 0px auto 9px auto!important;
+}
+
+.lb-collection-seo-header-p {
+  text-align: center!important;
+  font-size: 16px!important;
+  line-height: 22px!important;
+  color: #311d0f!important;
+  position: relative;
+}
+
+  .lb-collection-seo-header-p-fade {
+   height: 60px;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+background: rgb(242,240,235);
+background: linear-gradient(180deg, rgba(242,240,235,0) 0%, rgba(242,240,235,1) 100%);
+    left: 0px;
+    pointer-events: none!important;
+    display: none;
+  }
+
+@media only screen and (max-width: 600px) {
+.lb-collection-seo-header-p {
+  display: -webkit-box;
+    -webkit-line-clamp: 5; /* Anzahl der Zeilen */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+}
+
+.lb-collection-seo-header-opener {
+  text-decoration: underline!important;
+  display: none;
+  text-align: center!important;
+  font-weight: bold!important;
+}
+  
+  @media only screen and (max-width: 600px) {
+
+  .lb-collection-seo-header-opener {
+  display: block;
+}
+    
+   .lb-swiper-boxes a {
+      width: 43% !important;
+      margin-right: 5px !important;
+      aspect-ratio: 16 / 10 !important;
+    }
+
+      .lb-collection-seo-header-p-fade {
+    display: block;
+      }
+    
+  }
+
+
+  .expanded {
+  -webkit-line-clamp: 200; /* Entfernt die Begrenzung */
+}
+
+  .opener-wording-hide {
+  display: none;
+}
+
+  .hide-fade {
+    display: none;
+  }
+
+  .lb-collection-seo-header-closer-wording {
+    display: none;
+  }
+
+  .closer-wording-show {
+  display: inline-block;
+    text-decoration: underline!important;
+}
+   
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+  $(document).ready(function() {
+     $(".lb-collection-seo-header-opener").click(function() {
+     $(".lb-collection-seo-header-p").toggleClass("expanded");
+     $(".lb-collection-seo-header-opener-wording").toggleClass("opener-wording-hide");
+     $(".lb-collection-seo-header-closer-wording").toggleClass("closer-wording-show");
+     $(".lb-collection-seo-header-p-fade").toggleClass("hide-fade");
+    });
+  });
+</script>
+
+
+{% schema %}
+{
+  "name": {
+    "en": "Lb Seo Header",
+    "de": "Lb Seo Header"
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": {
+        "en": "Section Settings",
+        "de": "Section Einstellungen"
+      }
+    },
+    {
+      "type": "color",
+      "id": "background-color",
+      "default": "#f2f2f2",
+      "label": {
+        "en": "Background Color",
+        "de": "Hintergrundfarbe"
+      },
+      "info": {
+        "en": "Choose the background color of the section",
+        "de": "Wähle den Hintergrund der Section"
+      }
+    },
+    {
+      "type": "range",
+      "id": "max-show",
+      "min": 400,
+      "max": 2000,
+      "step": 20,
+      "default": 2000,
+      "label": {
+        "en": "Maximum Display",
+        "de": "Maximale Anzeige"
+      },
+      "info": {
+        "en": "Maximum display width in pixels",
+        "de": "Maximale Anzeigebreite in Pixel"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "en": "Lb Seo Header",
+        "de": "Lb Seo Header"
+      }
+    }
+  ]
+}
+
+{% endschema %}

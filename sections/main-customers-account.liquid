@@ -1,0 +1,249 @@
+{% if customer.metafields['memberr-v1'].store_credit_balance.value.current %}
+  {% assign current_store_credit_balance = customer.metafields['memberr-v1'].store_credit_balance.value.current %}
+{% else %}
+  {% assign current_store_credit_balance = 0 %}
+{% endif %}
+
+{% assign store_credit_transactions = customer.metafields['memberr-v1'].store_credit_transactions.value %}
+
+{% assign customer_memberships = customer.metafields['memberr-v1'].customer_memberships.value %}
+
+{% if customer.metafields['memberr-v1'].customer_memberships.value.size > 0 %}
+  {% assign ackerbaum_gold_member = true %}
+{% else %}
+  {% assign ackerbaum_gold_member = false %}
+{% endif %}
+{% if customer.metafields['memberr-v1'].customer_memberships.value.size > 0 %}
+  {% assign gold_membership = customer.metafields['memberr-v1'].customer_memberships.value[0] %}
+{% endif %}
+
+{% assign gold_progress = customer.total_spent | divided_by: 100 | divided_by: 1000.0 %}
+
+<div class="container">
+  <div class="page-spacer">
+    <div class="account tw-max-w-2xl gap-8 tw-grid-cols-1 lg:tw-grid-cols-2" style="max-width: 1024px;">
+      <div>
+        <div class="account-header">
+          <div class="justify-self-start">
+            <h1 class="h3">
+              Hallo
+              {% if customer.first_name -%}
+                {{- customer.first_name -}}
+              {%- else -%}
+                {{- customer.email -}}
+              {%- endif -%}
+              !
+            </h1>
+          </div>
+        </div>
+        <div class="account__block-list">
+          <div class="v-stack gap-1">
+            <p class="text-subdued">Dein ackerbaum Guthaben:</p>
+            <p class="h3">{{ current_store_credit_balance | money }}</p>
+          </div>
+        </div>
+      </div>
+
+      {% comment %}
+        {% if ackerbaum_gold_member %}
+          <div class="tw-flex tw-flex-col tw-shadow-md tw-items-start tw-p-6 tw-justify-center tw-rounded-lg tw-bg-accent tw-w-full tw-max-w-[24rem] tw-mx-auto tw-aspect-[1.586]">
+            {{-
+              section.settings.gold_logo
+              | image_url: width: 480
+              | image_tag: sizes: sizes, widths: widths, class: 'tw-mx-auto tw-w-[240px]'
+            -}}
+            <ul class="tw-text-center tw-text-white tw-my-4 tw-mx-auto">
+              <li>Kostenloser Versand aller Bestellungen</li>
+              <li>5 % Guthaben auf jeden Einkauf</li>
+              <li>ackerbaum Mastermind Webinare</li>
+            </ul>
+
+            <p class="tw-text-white/50 tw-w-fit tw-mx-auto">
+              Mitgliedschaft gültig bis: {{ gold_membership.membership_end_date | date: format: 'date' }}
+            </p>
+          </div>
+        {% else %}
+          <div class="tw-flex tw-flex-col tw-shadow-md tw-items-start tw-p-6 tw-justify-center tw-rounded-lg tw-bg-accent tw-w-full tw-max-w-[24rem] tw-mx-auto tw-aspect-[1.586]">
+            {{-
+              section.settings.gold_logo
+              | image_url: width: 480
+              | image_tag: sizes: sizes, widths: widths, class: 'tw-mx-auto tw-w-[240px]'
+            -}}
+            <div class="tw-w-full tw-space-y-1 tw-mt-4">
+              <p class="tw-text-right tw-w-full tw-leading-none tw-text-sm tw-text-white">
+                Noch {{ 100000 | minus: customer.total_spent | money }}
+              </p>
+              <div class="tw-relative tw-w-full tw-h-2 tw-bg-[#1A4205] tw-rounded-full">
+                <div
+                  class="tw-absolute tw-top-0 tw-left-0 tw-h-full tw-bg-white tw-rounded-full"
+                  style="width: {{ gold_progress | times: 100 }}%"
+                ></div>
+              </div>
+              {% comment %} Left 0€ right 1000€ {% endcomment %}
+              <div class="tw-flex tw-justify-between tw-w-full tw-text-white tw-text-xs">
+                <span>0€</span>
+                <span>1000€</span>
+              </div>
+            </div>
+            <ul class="tw-text-center tw-text-white tw-my-4 tw-mx-auto">
+              <li>Kostenloser Versand aller Bestellungen</li>
+              <li>5 % Guthaben auf jeden Einkauf</li>
+              <li>ackerbaum Mastermind Webinare</li>
+            </ul>
+          </div>
+        {% endif %}
+      {% endcomment %}
+    </div>
+  </div>
+
+  {%- if customer.orders.size == 0 -%}
+    <div class="empty-state">
+      <div class="empty-state__icon-wrapper">
+        {%- render 'icon' with 'picto-box', width: 32, height: 32, stroke_width: 1 -%}
+        <span class="count-bubble count-bubble--lg">0</span>
+      </div>
+
+      <div class="prose">
+        <p class="h6">{{ 'customer.account.no_orders' | t }}</p>
+
+        {%- assign button_content = 'customer.account.continue_shopping' | t -%}
+        {%- render 'button', href: routes.all_products_collection_url, size: 'xl', content: button_content -%}
+      </div>
+    </div>
+  {%- else -%}
+    <div class="page-spacer">
+      <div class="account">
+        <div class="account-header">
+          <div class="text-with-bubble justify-self-center">
+            <h1 class="h3">{{ 'customer.account.orders' | t }}</h1>
+            <span class="count-bubble count-bubble--lg">{{ customer.orders.size }}</span>
+          </div>
+        </div>
+
+        {%- paginate customer.orders by 16 -%}
+          <div class="account__block-list">
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when '@app' -%}
+                  {%- render block -%}
+
+                {%- when 'liquid' -%}
+                  {%- if block.settings.liquid != blank -%}
+                    <div {{ block.shopify_attributes }}>
+                      {{ block.settings.liquid }}
+                    </div>
+                  {%- endif -%}
+
+                {%- when 'orders' -%}
+                  <div class="v-stack gap-5" {{ block.shopify_attributes }}>
+                    <div class="order-grid-list">
+                      {%- for order in customer.orders -%}
+                        <div class="order-grid-item rounded-sm">
+                          <p class="h5">{{ 'customer.order.order_name' | t: name: order.name }}</p>
+
+                          <div class="order-grid-item__categories">
+                            <div class="v-stack gap-1">
+                              <p class="bold">{{ 'customer.order.date' | t }}</p>
+                              <p class="text-subdued">{{ order.created_at | date: format: 'date' }}</p>
+                            </div>
+
+                            <div class="v-stack gap-1">
+                              <p class="bold">{{ 'customer.order.fulfillment_status' | t }}</p>
+                              <p class="text-subdued">{{ order.financial_status_label }}</p>
+                            </div>
+
+                            <div class="v-stack gap-1">
+                              <p class="bold">{{ 'customer.order.payment_status' | t }}</p>
+                              <p class="text-subdued">{{ order.fulfillment_status_label }}</p>
+                            </div>
+
+                            <div class="v-stack gap-1">
+                              <p class="bold">{{ 'customer.order.total' | t }}</p>
+                              <p class="text-subdued">{{ order.total_net_amount | money }}</p>
+                            </div>
+                          </div>
+
+                          {%- capture button_label -%}{{ 'customer.order.view_details' | t }}{%- endcapture -%}
+                          {%- render 'button',
+                            href: order.customer_url,
+                            content: button_label,
+                            secondary: true,
+                            stretch: true
+                          -%}
+                        </div>
+                      {%- endfor -%}
+                    </div>
+
+                    <table class="order-table-list">
+                      <thead>
+                        <tr>
+                          <th>{{ 'customer.order.order' | t }}</th>
+                          <th>{{ 'customer.order.date' | t }}</th>
+                          <th>{{ 'customer.order.payment_status' | t }}</th>
+                          <th>{{ 'customer.order.fulfillment_status' | t }}</th>
+                          <th class="text-end">{{ 'customer.order.total' | t }}</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        {%- for order in customer.orders -%}
+                          <tr class="table-row-hover" onclick="window.location.href = '{{ order.customer_url }}'">
+                            <td class="bold">{{ order.name }}</td>
+                            <td class="text-subdued">{{ order.created_at | date: format: 'date' }}</td>
+                            <td class="text-subdued">{{ order.financial_status_label }}</td>
+                            <td class="text-subdued">{{ order.fulfillment_status_label }}</td>
+                            <td class="text-subdued text-end">{{ order.total_net_amount | money }}</td>
+                          </tr>
+                        {%- endfor -%}
+                      </tbody>
+                    </table>
+
+                    {%- render 'pagination', paginate: paginate -%}
+                  </div>
+              {%- endcase -%}
+            {%- endfor -%}
+          </div>
+        {%- endpaginate -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  <!-- {% render 'store-credit-transactions-table', transactions: store_credit_transactions %} -->
+</div>
+
+{% schema %}
+{
+  "name": "Customer account",
+  "class": "shopify-section--main-customers-account",
+  "tag": "section",
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "liquid",
+      "name": "Liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "liquid",
+          "label": "Liquid"
+        }
+      ]
+    },
+    {
+      "type": "orders",
+      "name": "Order list",
+      "limit": 1
+    }
+  ],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "gold_logo",
+      "label": "ackerbaum Gold Logo",
+      "info": "280 x 80px .png recommended"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,147 @@
+{%- render 'section-spacing-collapsing' -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    {% if section.settings.remove_vertical_spacing %}--section-spacing-block: 0px;{% endif %}
+    {% if section.settings.remove_horizontal_spacing %}--section-spacing-inline: 0px;{% endif %}
+  }
+  .read-more-less {
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: bold;
+  }
+</style>
+
+<div {% render 'section-properties' %}>
+  <div class="prose">
+    <h2 class="h2" style="text-align: center;">{{ section.settings.heading }}</h2>
+  </div>
+  <br>
+  <div class="product-description section-stack__main" style="margin: auto; padding-bottom: 24px;">
+    {%- assign description = product.description -%}
+    {%- if section.settings.truncate_description and description.size > section.settings.description_length -%}
+      {%- assign short_description = description | slice: 0, section.settings.description_length -%}
+      <div id="short-description">
+        {{ short_description | strip_html }}<span id="ellipsis">...</span>
+        <a href="#" class="read-more-less" onclick="toggleDescription(); return false;">
+          {{ section.settings.read_more_text }}
+        </a>
+      </div>
+      <div id="full-description" style="display:none;">
+        {{ description }}
+      <br>
+        <a href="#" class="read-more-less" onclick="toggleDescription(); return false;">
+          {{ section.settings.read_less_text }}
+        </a>
+      </div>
+    {%- else -%}
+      {{ description }}
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  function toggleDescription() {
+    var shortDesc = document.getElementById('short-description');
+    var fullDesc = document.getElementById('full-description');
+    var ellipsis = document.getElementById('ellipsis');
+    
+    if (shortDesc.style.display === 'none') {
+      shortDesc.style.display = 'block';
+      fullDesc.style.display = 'none';
+    } else {
+      shortDesc.style.display = 'none';
+      fullDesc.style.display = 'block';
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "AB Produktbeschreibung",
+  "tag": "section",
+  "class": "shopify-section--product-description",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "truncate_description",
+      "label": "Produktbeschreibung kürzen",
+      "default": false
+    },
+    {
+      "type": "number",
+      "id": "description_length",
+      "label": "Maximale Zeichenanzahl der Beschreibung",
+      "default": 140
+    },
+    {
+      "type": "text",
+      "id": "read_more_text",
+      "label": "Text für 'Mehr anzeigen'",
+      "default": "mehr lesen"
+    },
+    {
+      "type": "text",
+      "id": "read_less_text",
+      "label": "Text für 'Weniger lesen'",
+      "default": "weniger lesen"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Sektion Überschrift",
+      "default": "Produktbeschreibung"
+    },
+    {
+      "type": "header",
+      "content": "Allgemeine Einstellungen"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_vertical_spacing",
+      "label": "Remove vertical spacing",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_horizontal_spacing",
+      "label": "Remove horizontal spacing",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Colors",
+      "info": "Gradient replaces solid colors when set."
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background"
+    },
+    {
+      "type": "color_background",
+      "id": "background_gradient",
+      "label": "Background gradient"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "AB Produktbeschreibung"
+    }
+  ]
+}
+{% endschema %}

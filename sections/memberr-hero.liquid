@@ -1,0 +1,333 @@
+<div class="">
+    <div class="grid grid-cols-1 md:grid-cols-2">
+      <div class="column">
+        <div class="div-4">
+          <img
+            loading="lazy"
+            srcset="..."
+            class="img"
+          />
+          <div class="div-5">Jetzt anmelden und Vorteile ernten!</div>
+          <div class="div-6">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            varius enim in eros elementum tristique. Duis cursus, mi quis
+            viverra ornare, eros dolor interdum nulla, ut commodo diam libero
+            vitae erat.
+          </div>
+          <div class="div-7">
+            <div class="div-8">Jetzt anmelden</div>
+            <div class="div-9">Mehr erfahren</div>
+          </div>
+        </div>
+      </div>
+      <div class="column-2">
+        <div class="div-10">
+          <div class="div-11">
+            <div class="column">
+              <div class="div-12">
+                <img
+                  loading="lazy"
+                  srcset="..."
+                  class="img-2"
+                />
+                <img
+                  loading="lazy"
+                  srcset="..."
+                  class="img-3"
+                />
+                <img
+                  loading="lazy"
+                  srcset="..."
+                  class="img-4"
+                />
+              </div>
+            </div>
+            <div class="column-3">
+              <div class="div-13">
+                <img
+                  loading="lazy"
+                  srcset="..."
+                  class="img-5"
+                />
+                <img
+                  loading="lazy"
+                  srcset="..."
+                  class="img-6"
+                />
+                <img
+                  loading="lazy"
+                  srcset="..."
+                  class="img-7"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .div {
+    background-color: #f2f0ec;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 60px;
+  }
+  @media (max-width: 991px) {
+    .div {
+      padding: 0 20px;
+    }
+  }
+  .div-2 {
+  }
+  @media (max-width: 991px) {
+    .div-2 {
+      max-width: 100%;
+      margin-right: 4px;
+    }
+  }
+  .div-3 {
+    gap: 20px;
+    display: flex;
+  }
+  @media (max-width: 991px) {
+    .div-3 {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0px;
+    }
+  }
+  .column {
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    width: 50%;
+    margin-left: 0px;
+  }
+  @media (max-width: 991px) {
+    .column {
+      width: 100%;
+    }
+  }
+  .div-4 {
+    justify-content: center;
+    align-items: start;
+    align-self: stretch;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    padding: 50px 80px 50px 0;
+  }
+  @media (max-width: 991px) {
+    .div-4 {
+      max-width: 100%;
+      padding-right: 20px;
+    }
+  }
+  .img {
+    aspect-ratio: 5.93;
+    object-fit: contain;
+    object-position: center;
+    width: 160px;
+    overflow: hidden;
+    margin-top: 211px;
+    max-width: 100%;
+  }
+  @media (max-width: 991px) {
+    .img {
+      margin-top: 40px;
+    }
+  }
+  .div-5 {
+    align-self: stretch;
+    color: var(--Black, var(--base-text, #000));
+    margin-top: 24px;
+    font: 700 56px/67px Roboto, sans-serif;
+  }
+  @media (max-width: 991px) {
+    .div-5 {
+      max-width: 100%;
+      font-size: 40px;
+      line-height: 54px;
+    }
+  }
+  .div-6 {
+    align-self: stretch;
+    color: var(--Black, var(--base-text, #000));
+    margin-top: 24px;
+    font: 400 18px/27px Roboto, sans-serif;
+  }
+  @media (max-width: 991px) {
+    .div-6 {
+      max-width: 100%;
+    }
+  }
+  .div-7 {
+    padding-top: 16px;
+    display: flex;
+    gap: 16px;
+    margin: 24px 0 159px;
+  }
+  @media (max-width: 991px) {
+    .div-7 {
+      margin-bottom: 40px;
+    }
+  }
+  .div-8 {
+    color: #f2f0ec;
+    white-space: nowrap;
+    justify-content: center;
+    border-radius: 23px;
+    border: 1px solid var(--Black, #000);
+    background-color: #2f6e2e;`
+    flex-grow: 1;
+    padding: 12px 24px;
+    font: 400 16px/150% Roboto, sans-serif;
+  }
+  @media (max-width: 991px) {
+    .div-8 {
+      white-space: initial;
+      padding: 0 20px;
+    }
+  }
+  .div-9 {
+    color: var(--Black, var(--base-text, #000));
+    white-space: nowrap;
+    justify-content: center;
+    border-radius: 23px;
+    border: 1px solid var(--Black, #000);
+    flex-grow: 1;
+    padding: 12px 24px;
+    font: 400 16px/150% Roboto, sans-serif;
+  }
+  @media (max-width: 991px) {
+    .div-9 {
+      white-space: initial;
+      padding: 0 20px;
+    }
+  }
+  .column-2 {
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    width: 50%;
+    margin-left: 20px;
+  }
+  @media (max-width: 991px) {
+    .column-2 {
+      width: 100%;
+    }
+  }
+  .div-10 {
+    flex-grow: 1;
+    padding: 0 1px;
+  }
+  @media (max-width: 991px) {
+    .div-10 {
+      max-width: 100%;
+    }
+  }
+  .div-11 {
+    gap: 20px;
+    display: flex;
+  }
+  @media (max-width: 991px) {
+    .div-11 {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0px;
+    }
+  }
+  .div-12 {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+  }
+  @media (max-width: 991px) {
+    .div-12 {
+      margin-top: 17px;
+    }
+  }
+  .img-2 {
+    aspect-ratio: 1.7;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+    overflow: hidden;
+  }
+  .img-3 {
+    aspect-ratio: 0.94;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 16px;
+  }
+  .img-4 {
+    aspect-ratio: 0.94;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 16px;
+  }
+  .column-3 {
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    width: 50%;
+    margin-left: 20px;
+  }
+  @media (max-width: 991px) {
+    .column-3 {
+      width: 100%;
+    }
+  }
+  .div-13 {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+  }
+  @media (max-width: 991px) {
+    .div-13 {
+      margin-top: 17px;
+    }
+  }
+  .img-5 {
+    aspect-ratio: 0.94;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+    overflow: hidden;
+  }
+  .img-6 {
+    aspect-ratio: 0.94;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 16px;
+  }
+  .img-7 {
+    aspect-ratio: 1.7;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 16px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "memberr Hero",
+  "tag": "section",
+  "disabled_on": {
+    "templates": ["password"],
+    "groups": ["header", "custom.overlay"]
+  },
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,179 @@
+<div class="lb-collection-seo-footer">
+  <div class="lb-collection-seo-footer-holder">
+    {{ collection.metafields.custom.seo_footer_box }}
+  </div> 
+</div>
+
+
+<style>
+
+  .lb-collection-seo-footer {
+    padding: 36px 18px; 
+  }
+
+ .lb-collection-seo-footer b {
+    font-weight: 900!important;
+  }
+
+.lb-collection-seo-footer-holder {
+  display: block;
+  max-width: 900px;
+  margin: auto;
+}
+
+.lb-collection-seo-footer h2 {
+  text-align: left;
+  font-size: 22px!important;
+  line-height: 28px!important;
+  font-family: "SofiaProLight"!important;
+  color: #311d0f!important;
+  font-weight: bold!important;
+  max-width: 600px;
+  margin: 0px auto 9px auto!important;
+}
+
+.lb-collection-seo-footer p {
+  text-align: left;
+  font-size: 14px!important;
+  line-height: 20px!important;
+  color: #311d0f!important;
+  position: relative;
+}
+
+.lb-collection-seo-footer a {
+  text-decoration: underline!important;
+  color: #2f6e2e!important;
+}
+
+
+
+
+
+  
+
+
+.lb-seo-footer-box-imagetext {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+}  
+
+.lb-seo-footer-box-imagetext div {
+  width: 50%;
+  padding: 9px;
+}  
+
+.lb-seo-footer-box-imagetext  h3 {
+  margin: 9px 0px;
+  font-weight: bold;
+}
+
+
+.lb-seo-footer-box-imagetext img {
+  border-radius: 15px;
+}
+
+
+@media only screen and (max-width: 600px) {
+
+.lb-seo-footer-box-imagetext {
+  display: block;
+}  
+
+.lb-seo-footer-box-imagetext div {
+  width: 100%;
+}
+  
+}
+
+
+
+
+
+  
+
+
+.lb-seo-footer-box-onlytext {
+  margin-bottom: 18px;
+    padding: 9px;
+}  
+
+.lb-seo-footer-box-onlytext h2 {
+  text-align: left;
+  max-width: 1800px;
+}
+
+.lb-seo-footer-box-onlytext p {
+  text-align: left;
+}
+
+.lb-seo-footer-box-onlytext table {
+border: 1px solid black;
+  margin: 9px 0px;
+} 
+
+.lb-seo-footer-box-onlytext table td {
+  padding: 9px!important;
+} 
+
+  
+
+</style>
+
+
+
+{% schema %}
+{
+  "name": {
+    "en": "Lb Seo Footer",
+    "de": "Lb Seo Footer"
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": {
+        "en": "Section Settings",
+        "de": "Section Einstellungen"
+      }
+    },
+    {
+      "type": "color",
+      "id": "background-color",
+      "default": "#f2f2f2",
+      "label": {
+        "en": "Background Color",
+        "de": "Hintergrundfarbe"
+      },
+      "info": {
+        "en": "Choose the background color of the section",
+        "de": "Wähle den Hintergrund der Section"
+      }
+    },
+    {
+      "type": "range",
+      "id": "max-show",
+      "min": 400,
+      "max": 2000,
+      "step": 20,
+      "default": 2000,
+      "label": {
+        "en": "Maximum Display",
+        "de": "Maximale Anzeige"
+      },
+      "info": {
+        "en": "Maximum display width in pixels",
+        "de": "Maximale Anzeigebreite in Pixel"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "en": "Lb Seo Footer",
+        "de": "Lb Seo Footer"
+      }
+    }
+  ]
+}
+
+{% endschema %}

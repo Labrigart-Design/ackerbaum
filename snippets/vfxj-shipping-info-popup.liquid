@@ -1,0 +1,79 @@
+<style>
+  #popup-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 998;
+    display: none;
+  }
+
+  #popup-content {
+    background-color: #f3efec;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    box-shadow: 0 0 10px #311d0f;
+    border-radius: 5px;
+    height: 60%;
+    width: 100%;
+    max-width: 800px;
+    overflow-y: auto;
+    display: none;
+    z-index: 999;
+    flex-direction: column;
+  }
+  #popup-content h2 {
+    margin: 0.25rem 0 0.75rem 0;
+  }
+</style>
+
+<div id="popup-overlay"></div>
+
+<div id="popup-content">
+  <div class="cart-drawer__top">
+    <div class="h-stack items-center justify-between">
+      <div class="h-stack gap-2 sm:gap-2.5">
+        <p class="h5">{{ shipping_popup_heading }}</p>
+      </div>
+      <button type="button" id="closezv" class="drawer__close-icon">
+        <span class="sr-only">Schließen</span>
+        <svg
+          role="presentation"
+          stroke-width="2"
+          focusable="false"
+          width="24"
+          height="24"
+          class="icon icon-close"
+          viewBox="0 0 24 24"
+        >
+          <path d="M17.658 6.343 6.344 17.657M17.658 17.657 6.344 6.343" stroke="currentColor"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+  {{ shop.shipping_policy.body }}
+</div>
+
+<script>
+  document.getElementById('popup-button').addEventListener('click', function () {
+    document.getElementById('popup-overlay').style.display = 'block';
+    document.getElementById('popup-content').style.display = 'block';
+  });
+
+  document.getElementById('closezv').addEventListener('click', function () {
+    document.getElementById('popup-overlay').style.display = 'none';
+    document.getElementById('popup-content').style.display = 'none';
+  });
+
+  document.getElementById('popup-overlay').addEventListener('click', function (event) {
+    if (event.target === this) {
+      document.getElementById('popup-overlay').style.display = 'none';
+      document.getElementById('popup-content').style.display = 'none';
+    }
+  });
+</script>

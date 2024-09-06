@@ -1,0 +1,267 @@
+<div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-max-w-5xl tw-mx-auto">
+  <div class="tw-flex tw-justify-center tw-items-center tw-p-4">
+    <div class="tw-text-center md:tw-text-left tw-space-y-4">
+      <h1 class="h2">{{ section.settings.title }}</h1>
+      <p class="tw-text-lg tw-mt-2">{{ section.settings.subtitle }}</p>
+      <a
+        href="{{ section.settings.button_link }}"
+        class="button button--lg tw-w-full md:tw-w-auto"
+      >
+        {{- section.settings.button -}}
+      </a>
+    </div>
+  </div>
+  <div class="tw-flex tw-justify-center tw-items-center tw-p-4">
+    <div class="tw-grid tw-grid-cols-2 tw-gap-4 tw-overflow-hidden">
+      <img
+        src="{{ section.settings.image_1 | img_url: 'master' }}"
+        alt=""
+        class="tw-w-full tw-h-full tw-object-cover tw-rounded-md tw-aspect-[0.8]"
+      >
+      <img
+        src="{{ section.settings.image_2 | img_url: 'master' }}"
+        alt=""
+        class="tw-w-full tw-h-full tw-object-cover tw-rounded-md tw-aspect-[0.8]"
+      >
+      <img
+        src="{{ section.settings.image_3 | img_url: 'master' }}"
+        alt=""
+        class="tw-w-full tw-h-full tw-object-cover tw-rounded-md tw-aspect-[0.8]"
+      >
+      <img
+        src="{{ section.settings.image_4 | img_url: 'master' }}"
+        alt=""
+        class="tw-w-full tw-h-full tw-object-cover tw-rounded-md tw-aspect-[0.8]"
+      >
+    </div>
+  </div>
+</div>
+{% comment %} Section with title and text {% endcomment %}
+<div class="tw-max-w-4xl tw-mx-auto tw-p-4 tw-text-center tw-space-y-4">
+  <h2 class="h2">{{ section.settings.title_2 }}</h2>
+  <p class="tw-text-lg tw-mt-2">{{ section.settings.subtitle_2 }}</p>
+</div>
+
+{% comment %} Section with a heading and four cards with numbered steps and a paragraph {% endcomment %}
+<div class="tw-max-w-5xl tw-mx-auto tw-p-4 tw-space-y-8">
+  <h2 class="h2 tw-text-center">{{ section.settings.title_3 }}</h2>
+  <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-4">
+    <div class="tw-flex tw-items-start tw-p-4 bg-secondary rounded">
+      <div class="tw-space-y-4">
+        <h3 class="h3">1. Schritt</h3>
+        <p class="tw-text-lg">{{ section.settings.step_1 }}</p>
+      </div>
+    </div>
+    <div class="tw-flex tw-items-start tw-p-4 bg-secondary rounded">
+      <div class="tw-space-y-4">
+        <h3 class="h3">2. Schritt</h3>
+        <p class="tw-text-lg">{{ section.settings.step_2 }}</p>
+      </div>
+    </div>
+    <div class="tw-flex tw-items-start tw-p-4 bg-secondary rounded">
+      <div class="tw-space-y-4">
+        <h3 class="h3">3. Schritt</h3>
+        <p class="tw-text-lg">{{ section.settings.step_3 }}</p>
+      </div>
+    </div>
+    <div class="tw-flex tw-items-start tw-p-4 bg-secondary rounded">
+      <div class="tw-space-y-4">
+        <h3 class="h3">4. Schritt</h3>
+        <p class="tw-text-lg">{{ section.settings.step_4 }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% comment %} Section with two columns on desktop with a heading and a paragraph {% endcomment %}
+<div class="tw-text-center md:tw-text-left tw-grid tw-grid-cols-1 tw-items-start md:tw-grid-cols-2 tw-max-w-5xl tw-mx-auto tw-p-4 tw-gap-8">
+  <div class="tw-space-y-4">
+    <h2 class="h2">{{ section.settings.title_4 }}</h2>
+    <p class="tw-text-lg">
+      {{ section.settings.subtitle_4 }}
+    </p>
+  </div>
+  <div class="tw-space-y-4">
+    <h2 class="h2">{{ section.settings.title_5 }}</h2>
+    <p class="tw-text-lg">{{ section.settings.subtitle_5 }}</p>
+  </div>
+</div>
+
+{% comment %}
+  <div class="tw-grid tw-grid-cols-1 tw-items-start md:tw-grid-cols-2 tw-max-w-5xl tw-mx-auto tw-p-4 tw-gap-8">
+    <div class="tw-space-y-4 tw-text-center md:tw-text-left">
+      <h2 class="h2">{{ section.settings.title_6 }}</h2>
+      <div class="tw-text-lg">
+        {{ section.settings.subtitle_6 }}
+      </div>
+    </div>
+
+    <div
+      class="tw-flex tw-flex-col tw-shadow-md tw-items-start tw-p-6 tw-justify-center tw-rounded-lg tw-bg-accent tw-w-full tw-max-w-[24rem] tw-mx-auto tw-aspect-[1.586]"
+    >
+      {{-
+        section.settings.gold_logo
+        | image_url: width: 480
+        | image_tag: sizes: sizes, widths: widths, class: 'tw-mx-auto tw-w-[240px]'
+      -}}
+
+      <ul class="tw-text-center tw-text-white tw-my-4 tw-mx-auto">
+              <li>Kostenloser Versand aller Bestellungen</li>
+              <li>5 % Guthaben auf jeden Einkauf</li>
+              <li>ackerbaum Mastermind Webinare</li>
+      </ul>
+    </div>
+  </div>
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "Guthaben Landing Page",
+  "tag": "section",
+  "class": "tw-space-y-8 tw-mb-8",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titel",
+      "default": "Jetzt kostenlos bei ackerbaum registrieren & sofort exklusive Vorteile ernten!"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Untertitel",
+      "default": "Guthaben sammeln und sparen!"
+    },
+    {
+      "type": "text",
+      "id": "button",
+      "label": "Button Text",
+      "default": "Jetzt anmelden"
+    },
+    {
+      "type": "text",
+      "id": "button_link",
+      "label": "Button Link",
+      "default": "/account/register"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Bild"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Bild"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Bild"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Bild"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5",
+      "label": "Bild"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_6",
+      "label": "Bild"
+    },
+    {
+      "type": "text",
+      "id": "title_2",
+      "label": "Titel",
+      "default": "Guthaben ernten"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle_2",
+      "label": "Text",
+      "default": "Als treuer ackerbaum Kunde kannst du beim Einkaufen und all unseren Aktionen bares Geld sparen.\nKlingt zu gut, um wahr zu sein? Lass' mich Dir das gerne kurz erklären!\nWir schenken dir für jede deiner Bestellungen ein Guthaben von 2.5% des Bestellwerts. Alles was Du dafür tun musst, ist dir ein Kundenkonto bei ackerbaum zu erstellen. Das Konto ist selbstverständlich kostenlos und du kannst das Guthaben jederzeit abrufen und einlösen."
+    },
+    {
+      "type": "text",
+      "id": "title_3",
+      "label": "Titel",
+      "default": "Hier ein kurzes Beispiel für dich"
+    },
+    {
+      "type": "textarea",
+      "id": "step_1",
+      "label": "Schritt 1",
+      "default": "Du kaufst etwas bei ackerbaum im Shop für 100€ ein."
+    },
+    {
+      "type": "textarea",
+      "id": "step_2",
+      "label": "Schritt 2",
+      "default": "Automatisch rechnen wir Deiner E-Mail Adresse 2,50€ (2.5%) Guthaben zu."
+    },
+    {
+      "type": "textarea",
+      "id": "step_3",
+      "label": "Schritt 3",
+      "default": "Über Dein ackerbaum Kundenkonto kannst Du Dein Guthaben einlösen."
+    },
+    {
+      "type": "textarea",
+      "id": "step_4",
+      "label": "Schritt 4",
+      "default": "Du SPARST bares Geld für DEINEN TRAUMGARTEN!"
+    },
+    {
+      "type": "text",
+      "id": "title_4",
+      "label": "Titel",
+      "default": "Guthaben einlösen"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle_4",
+      "label": "Text",
+      "default": "Um dein Guthaben einzulösen, musst du nichts weiter tun, als dich in dein Kundenkonto einzuloggen und den Kauf abschließen. Beim Checkout hast du die Möglichkeit einen Haken für das Einlösen des Guthabens zu setzen."
+    },
+    {
+      "type": "text",
+      "id": "title_5",
+      "label": "Titel",
+      "default": "Guthaben einsehen"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle_5",
+      "label": "Text",
+      "default": "Logge dich einfach in dein ackerbaum Kundenkonto ein. Hier wird dir das Guthaben und die damit verbundenen Bestellungen angezeigt."
+    },
+    {
+      "type": "text",
+      "id": "title_6",
+      "label": "Titel",
+      "default": "Für unsere treuesten Kunden"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle_6",
+      "label": "Text",
+      "default": "Bei denjenigen unter euch, die in den letzten 365 Tagen mehr als 1.000€ bei uns ausgegeben haben, wollen wir uns besonders bedanken:\nMit einer exklusiven ackerbaum Gold Mitgliedschaft."
+    },
+    {
+      "type": "image_picker",
+      "id": "gold_logo",
+      "label": "Gold Logo"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Guthaben Landing Page"
+    }
+  ]
+}
+{% endschema %}

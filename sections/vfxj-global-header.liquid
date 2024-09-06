@@ -1,0 +1,172 @@
+{%- render 'section-spacing-collapsing' -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    {% if section.settings.remove_vertical_spacing %}--section-spacing-block: 0px;{% endif %}
+    {% if section.settings.remove_horizontal_spacing %}--section-spacing-inline: 0px;{% endif %}
+  }
+
+  #shopify-section-{{ section.id }} .global-header-ab {
+    display: flex;
+    justify-content: space-between;
+      background-color: #2f6e2e;
+      color: #fff;
+      text-align: right;
+      font-size: 0.8rem;
+      padding: 0.3rem 0 0.2rem 0;
+  }
+
+  @media screen and (min-width: 1000px) {
+    .popover {
+        z-index: 11;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .global-header-ab ul li {
+      display: inline;
+  }
+
+  #shopify-section-{{ section.id }} span {
+      padding-left: 1rem;
+  }
+</style>
+
+<div {% render 'section-properties' %}>
+  <div class="global-header-ab">
+    {%- render 'localization-selector',
+      type: 'locale',
+      popover_vertical_position: 'end',
+      popover_horizontal_position: 'start'
+    -%}
+
+    <ul>
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'page' %}
+            <li>
+              <span>
+                <a href="{{ block.settings.page_link.url }}">
+                  {%- if block.settings.nav_text == blank -%}
+                    {{- block.settings.page_link.title -}}
+                  {%- else -%}
+                    {{- block.settings.nav_text -}}
+                  {%- endif %}
+                </a></span
+              >
+            </li>
+          {% when 'link' %}
+            <li>
+              <span>
+                <a
+                  href="{{ block.settings.nav_url }}"
+                  rel="nofollow"
+                  {% if block.settings.nav_blank == true %}
+                    target="_blank"
+                  {% endif %}
+                >
+                  {{- block.settings.nav_text -}}
+                </a></span
+              >
+            </li>
+        {% endcase %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "AB Global Header",
+  "tag": "section",
+  "class": "shopify-section--global-header",
+  "disabled_on": {
+    "groups": ["custom.overlay"]
+  },
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_vertical_spacing",
+      "label": "Remove vertical spacing",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_horizontal_spacing",
+      "label": "Remove horizontal spacing",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Colors",
+      "info": "Gradient replaces solid colors when set."
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background"
+    },
+    {
+      "type": "color_background",
+      "id": "background_gradient",
+      "label": "Background gradient"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Link",
+      "type": "link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "nav_text",
+          "label": "Link Text"
+        },
+        {
+          "type": "url",
+          "id": "nav_url",
+          "label": "Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "nav_blank",
+          "label": "In neuem Fenster öffnen",
+          "default": true
+        }
+      ]
+    },
+    {
+      "name": "Seite",
+      "type": "page",
+      "settings": [
+        {
+          "type": "page",
+          "id": "page_link",
+          "label": "Seite"
+        },
+        {
+          "type": "text",
+          "id": "nav_text",
+          "label": "Link Text überschreiben"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "AB Global Header"
+    }
+  ]
+}
+{% endschema %}

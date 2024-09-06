@@ -1,0 +1,161 @@
+{{ 'vfxj-product-detail-table.css' | asset_url | stylesheet_tag }}
+{%- render 'section-spacing-collapsing' -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    {% if section.settings.remove_vertical_spacing %}--section-spacing-block: 0px;{% endif %}
+    {% if section.settings.remove_horizontal_spacing %}--section-spacing-inline: 0px;{% endif %}
+  }
+</style>
+
+<div {% render 'section-properties' %}>
+  <div class="section-stack section-stack--center">
+    <div class="product-details-wrapper section-stack__main rounded bg-secondary">
+      {% if section.settings.heading != blank %}
+        <div class="prose">
+          {% if section.settings.heading != blank %}
+            <h2 class="h2 text-center">{{ section.settings.heading }}</h2>
+          {% endif %}
+          {% if section.settings.intro != blank %}
+            <p>{{ section.settings.intro }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <div class="product-details-table-wrapper">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'heading' %}
+              {% if block.settings.table_section_heading != blank %}
+                <h5 class="heading-row bold">{{ block.settings.table_section_heading }}</h5>
+              {% endif %}
+            {% when 'content' %}
+              {% if block.settings.table_content != blank %}
+                <div class="detail-row">
+                  {% if block.settings.table_content_heading != blank %}
+                    <div class="row-heading row-element">{{ block.settings.table_content_heading }}:</div>
+                  {% endif %}
+                  {% comment %} remove 'Kreuzbestäubung ertragsfördernd' if present in table content {% endcomment %}
+                  {% if block.settings.table_content contains 'Kreuzbestäubung ertragsfördernd' %}
+                    {% assign table_content = block.settings.table_content
+                      | split: 'Kreuzbestäubung ertragsfördernd'
+                      | first
+                      | remove: ','
+                    %}
+                  {% else %}
+                    {% assign table_content = block.settings.table_content %}
+                  {% endif %}
+                  <div class="row-content row-element">{{ table_content }}</div>
+                </div>
+              {% endif %}
+              {% if block.settings.table_content contains 'Kreuzbestäubung' %}
+                <product-recommendations product="{{ product.id }}" intent="complementary">
+                  {% if recommendations.performed %}
+                    {% if recommendations.products_count > 0 %}
+                      <div class="detail-row">
+                        {% assign fertilization_block = section.blocks | where: 'type', 'fertilization' | first %}
+
+                        <div class="row-heading row-element">
+                          {{ fertilization_block.settings.fertilization_heading }}:
+                        </div>
+                        <div class="row-content row-element">
+                          {% for product in recommendations.products %}
+                            <div class="recommendet-products">{{ product.title | link_to: product.url }}</div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                </product-recommendations>
+              {% endif %}
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": {
+    "de": "Tabelle Produktdetails",
+    "en": "Table Product Details"
+  },
+  "tag": "section",
+  "class": "shopify-section--product-details-table",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Tabellen Überschrift",
+      "default": "Produktdetails"
+    },
+    {
+      "type": "text",
+      "id": "intro",
+      "label": "Tabellen Intro",
+      "default": "Neque venenatis fringilla ullamcorper dignissim et tortor odio sed. Amet suscipit lacus id mi accumsan in."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": {
+        "de": "Tabellenabschnitt",
+        "en": "Table Heading"
+      },
+      "settings": [
+        {
+          "type": "text",
+          "id": "table_section_heading",
+          "label": "Abschnitt Überschrift"
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "name": {
+        "de": "Tabellenzeile",
+        "en": "Table Row"
+      },
+      "settings": [
+        {
+          "type": "text",
+          "id": "table_content_heading",
+          "label": "Zeilen Überschrift"
+        },
+        {
+          "type": "text",
+          "id": "table_content",
+          "label": "Zeilen Inhalt"
+        }
+      ]
+    },
+    {
+      "type": "fertilization",
+      "name": {
+        "de": "Kreuzbestäubung",
+        "en": "Fertilization"
+      },
+      "settings": [
+        {
+          "type": "text",
+          "id": "fertilization_heading",
+          "label": "Kreuzbestäubung Überschrift"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "de": "Tabelle Produktdetails",
+        "en": "Table Product Details"
+      }
+    }
+  ],
+  "enabled_on": {
+    "templates": ["product"]
+  }
+}
+{% endschema %}

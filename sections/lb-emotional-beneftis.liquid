@@ -1,0 +1,69 @@
+<div class="lb-pdp-emotional-benefits-section">
+  <div class="lb-pdp-emotional-benefits-section-holder">
+    {% for block in section.blocks %}
+      <div class="lb-pdp-emotional-benefits-item">
+        <img src="{{ block.settings.image | img_url: '500x' }}" alt="{{ block.settings.paragraph }}" width="46" height="46">
+        <p>{{ block.settings.paragraph }}</p>
+      </div>
+    {% endfor %}    
+  </div>
+</div>
+
+<style>
+.lb-pdp-emotional-benefits-section {background: {{ section.settings.backgroundcolor }};padding: 18px;}
+.lb-pdp-emotional-benefits-section-holder {max-width: 990px;margin: auto;display: flex;align-items: center;}
+.lb-pdp-emotional-benefits-item {width: 100%;display: flex;align-items: center;}
+.lb-pdp-emotional-benefits-item img {width: 46px;margin: 0px 9px 0px 0px;}
+.lb-pdp-emotional-benefits-item p {color: white;margin: 0px;font-size: 14px;line-height: 20px;max-width: 170px;font-family: "SofiaProSemiBold" !important;}
+
+@media only screen and (max-width: 600px) {  
+.lb-pdp-emotional-benefits-section-holder {display: block;}
+.lb-pdp-emotional-benefits-item {margin-bottom: 9px;}
+.lb-pdp-emotional-benefits-item p {max-width: 500px;}
+.lb-pdp-emotional-benefits-item img {width: 32px;}
+}  
+</style>
+
+{% schema %}
+{
+  "name": "Lb PDP Emotional Benefits",
+  "settings": [
+    {
+      "type": "liquid",
+      "id": "html",
+      "label": "HTML"
+    },
+    {
+      "type": "color",
+      "id": "backgroundcolor",
+      "label": "Hintergrundfarbe"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Block",
+      "type": "block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Anzeigebild"
+        },
+        {
+          "type": "textarea",
+          "id": "paragraph",
+          "label": "Text",
+          "default": "Lorem ipsum dolor sit amet"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "HTML",
+      "name": "Lb PDP Emotional Benefits",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}
